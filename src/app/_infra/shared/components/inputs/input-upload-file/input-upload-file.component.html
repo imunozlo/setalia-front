@@ -1,0 +1,13 @@
+<nz-upload
+  nzListType="text"
+  [nzShowUploadList]="false"
+  [nzBeforeUpload]="comprobarArchivo"
+  [nzCustomRequest]="guardarArchivo"
+  [nzDisabled]="!editable"
+>
+  <lib-boton
+    [icono]="'plus'"
+    [titulo]="'app.anyadirDocumento'"
+    [color]="'#1f1f1f'"
+    [colorFondo]="'#FFF'" />
+</nz-upload>

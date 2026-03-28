@@ -1,0 +1,101 @@
+<div *ngIf="entorno" style="position: absolute; right: 0; bottom: 0; padding: 10px">
+  <nz-row>
+    <nz-col [nzSpan]="24">
+      <h3 style="color: #2e106a">{{ 'Entorno de ' }} {{ entorno }}</h3>
+    </nz-col>
+  </nz-row>
+</div>
+
+<nz-row>
+  <nz-col [nzSpan]="24" style="padding-left: 8vw">
+    <img width="280" src="./assets/logos/logo_blanco.png" alt="Setalia" />
+  </nz-col>
+</nz-row>
+
+<div class="login-contenedor">
+  <nz-card class="login-card">
+    <form [formGroup]="form">
+      <nz-row>
+        <nz-col [nzSpan]="24">
+          <h2>{{ 'app.bienvenido' | i18n }}</h2>
+        </nz-col>
+      </nz-row>
+
+      <nz-row>
+        <nz-col [nzSpan]="24">
+          <p>{{ 'app.textLogin' | i18n }}</p>
+        </nz-col>
+      </nz-row>
+
+      <nz-row class="margin-top-md">
+        <nz-col [nzSpan]="24">
+          <lib-etiqueta [etiqueta]="'app.nombreUsuario'" [obligatorio]="true" [defecto]="true"></lib-etiqueta>
+        </nz-col>
+        <nz-col [nzSpan]="24">
+          <lib-input [placeholder]="'app.usuario.placeholder'"
+                     [cambioUsuario]="true"
+                     [control]="form.controls['usuario']"
+                     [disabled]="false" (cambioChange)="validar()">
+          </lib-input>
+        </nz-col>
+      </nz-row>
+
+      <nz-row class="margin-top-md">
+        <nz-col [nzSpan]="24">
+          <lib-etiqueta [etiqueta]="'app.contrasenya'" [obligatorio]="true" [defecto]="true"></lib-etiqueta>
+        </nz-col>
+        <nz-col [nzSpan]="24">
+          <lib-input-password
+            [placeholder]="'app.contrasenya.placeholder'"
+            [control]="form.controls['password']"
+            (cambioChange)="validar()"
+            [disabled]="false"
+          >
+          </lib-input-password>
+        </nz-col>
+      </nz-row>
+
+      <nz-row class="margin-top-md">
+        <nz-col [nzSpan]="24">
+          <lib-alertas [errorFormulario]="mostrarError" [errorFormularioText]="error" [tipo]="'error'"> </lib-alertas>
+        </nz-col>
+      </nz-row>
+
+      <nz-row>
+        <nz-col [nzSpan]="24" class="align-right">
+          <lib-boton
+            class="boton-acceder"
+            (click)="acceder()"
+            [titulo]="'app.entrar'"
+            [disabled]="loading"
+            [icono]="'login'"
+            [colorFondo]="'#ffffff'"
+            [color]="'var(--Neutral-11, #1F1F1F)'"
+          >
+          </lib-boton>
+        </nz-col>
+
+      </nz-row>
+    </form>
+  </nz-card>
+
+  <!--nz-card class="reset-card">
+    <nz-row>
+      <nz-col [nzSpan]="24">
+        <p>{{ 'app.textoRecuperarContrasenya' | i18n }}</p>
+      </nz-col>
+    </nz-row>
+
+    <nz-row>
+      <nz-col [nzSpan]="24">
+        <lib-input [placeholder]="'app.email'" [(valor)]="emailRecuperar" [disabled]="false"> </lib-input>
+      </nz-col>
+    </nz-row>
+
+    <nz-row class="margin-top-md">
+      <nz-col [nzSpan]="24" class="flex-end-center">
+        <lib-boton [disabled]="!emailRecuperar || loading" (click)="recuperarPassword()" [titulo]="'app.recuperar'"> </lib-boton>
+      </nz-col>
+    </nz-row>
+  </!--nz-card-->
+</div>

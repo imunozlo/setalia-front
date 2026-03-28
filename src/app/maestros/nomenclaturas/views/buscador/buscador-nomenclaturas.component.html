@@ -1,0 +1,46 @@
+<div class="card altura">
+  <app-skelteon *ngIf="loading" [files]="15"></app-skelteon>
+
+  <div class="buscador-paginacion" *ngIf="!loading">
+    <lib-tabla-botonera-principal
+      [mostrarFiltro]="false"
+      [mostrarExportar]="false"
+      [titulo]="'configuracion.listasValores'"
+      [permisos]="'MODULO_CONFIGURACION_LISTAS_EDICION'"
+      (refrescarFiltrosEvent)="limpiarFiltros()"
+    />
+
+    <div class="contenedor tabla">
+      <nz-table #basicTable [nzLoading]="loading" [nzPageSize]="10000" [nzHideOnSinglePage]="true" [nzData]="elementos">
+        <lib-columnas-tablas
+          *ngIf="!loading"
+          [ordenLocal]="true"
+          [(columnas)]="columnas"
+          [listasValores]="listasValores"
+          [elementos]="elementos"
+          (buscarEvent)="filtrar()"
+        />
+
+        <tbody>
+          <tr *ngFor="let dato of basicTable.data; index as i" (click)="editarElemento(dato)" class="pointer">
+            <td>{{ dato.nomenclaturaTipoDescripcion }}</td>
+            <td>{{ dato.descripcion }}</td>
+            <td>
+              <lib-tabla-activo [activo]="dato.activo" />
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+
+    <lib-tabla-botonera-secundaria
+      [loading]="loading"
+      [filtros]="filtros"
+      [ocultarPaginacion]="false"
+      (nuevoEvent)="nuevoElemento()"
+      [tituloNuevo]="'app.nuevoValor'"
+      (filtrar)="filtrarPaginacion($event)"
+    />
+  </div>
+</div>
+<app-drawer-nomenclatura #drawerNomenclatura *ngIf="!loading && listasValores" [tipo]="listasValores['tipo']" (refrescar)="filtrar()" />

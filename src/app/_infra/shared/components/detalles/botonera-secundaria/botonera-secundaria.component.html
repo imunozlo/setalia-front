@@ -1,0 +1,24 @@
+<nz-row class="padding-left-xlg padding-right-xlg padding-bottom-md padding-top-md pointer">
+  <nz-col [nzSpan]="12"> </nz-col>
+  <nz-col [nzSpan]="12" class="flex-end-center">
+    <h3 nz-dropdown [nzDropdownMenu]="menu" *ngIf="listaBotonera && listaBotonera.length > 0" style="margin-bottom: 0px"
+      >{{ opcionSeleccionada | i18n }} <i nz-icon class="icono" nzType="down"></i>
+    </h3>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item *ngFor="let opcion of listaBotonera" (click)="cambiarOpcionLista(opcion)">{{ opcion.nombre | i18n }}</li>
+      </ul>
+    </nz-dropdown-menu>
+
+    <h3 nz-dropdown [nzDropdownMenu]="menuSecundario" *ngIf="listaBotoneraSecundaria && listaBotoneraSecundaria.length > 0" style="margin-bottom: 0px"
+      >{{ 'app.opcionesSecundarias' | i18n }} <i nz-icon class="icono" nzType="more"></i>
+    </h3>
+    <nz-dropdown-menu #menuSecundario="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item *ngFor="let opcion of listaBotoneraSecundaria" (click)="cambiarOpcionSecundariaLista(opcion)">{{
+          opcion.nombre | i18n
+        }}</li>
+      </ul>
+    </nz-dropdown-menu>
+  </nz-col>
+</nz-row>

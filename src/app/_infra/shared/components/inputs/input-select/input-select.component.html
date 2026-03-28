@@ -1,0 +1,30 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+    <nz-select
+      [nzShowSearch]="!ocultarSearch"
+      [nzAllowClear]="!ocultarClear"
+      [nzSize]="size"
+      [nzDisabled]="disabledSelect"
+      [formControl]="control"
+      [nzPlaceHolder]="placeholder | i18n"
+      (nzOnSearch)="busqueda($event)"
+      (focusout)="cambiar()"
+      (ngModelChange)="cambiar()"
+    >
+      <nz-option *ngFor="let opcion of elementosFiltrados"
+        [nzCustomContent]="true"
+        [nzLabel]="disabledSelect ? '' : opcion[campo] | i18n"
+        [nzValue]="opcion.id"
+      >
+        <div>{{ opcion[campo] | i18n }}
+          <span *ngIf="ocultarNoActivos && !opcion.activo">
+            <nz-tag nzColor="default">
+              <span nz-icon nzType="minus-circle"></span>
+              <span>{{ 'app.noActivo' | i18n }}</span>
+            </nz-tag>
+          </span>
+        </div>
+      </nz-option>
+    </nz-select>
+  </nz-form-control>
+</nz-form-item>

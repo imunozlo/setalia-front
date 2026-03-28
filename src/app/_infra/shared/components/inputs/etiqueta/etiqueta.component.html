@@ -1,0 +1,7 @@
+<div [ngClass]="!defecto ?'flex-end-center':'flex-start-center'" class="flex-end-center">
+  <nz-form-label [nzRequired]="obligatorio" [nzNoColon]="true" [nzLabelWrap]="true">
+    <strong *ngIf="bold">{{etiqueta | i18n}}</strong>
+    <span *ngIf="!bold">{{etiqueta | i18n}}</span>
+  </nz-form-label>
+  <span *ngIf="icono" (click)="eventClickHover.emit()" nz-icon [nzType]="icono" nzTheme="outline" [nzTooltipTitle]="iconoHover" nzTooltipPlacement="leftBottom" nz-tooltip class="margin-right-sm pointer"></span>
+</div>

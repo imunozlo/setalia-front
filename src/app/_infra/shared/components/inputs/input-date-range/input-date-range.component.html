@@ -1,0 +1,18 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+    <nz-range-picker
+      [nzSize]="size"
+      [nzDisabled]="disabled"
+      [formControl]="control"
+      [nzFormat]="format"
+      [nzRanges]="rangos"
+      [nzPlaceHolder]="placeholder | i18n"
+      [nzMode]="tipo"
+      [nzLocale]="locale"
+      [nzDisabledDate]="disabledEndDate"
+      [nzShowTime]="false"
+      (focusout)="cambiar()"
+      (ngModelChange)="cambiar()"
+    />
+  </nz-form-control>
+</nz-form-item>

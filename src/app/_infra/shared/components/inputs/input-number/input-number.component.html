@@ -1,0 +1,17 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+    <nz-input-number
+      [nzStep]="step"
+      [nzMax]="max"
+      [nzMin]="min"
+      [nzSize]="size"
+      [formControl]="control"
+      [disabled]="disabled"
+      [nzPlaceHolder]="placeholder | i18n"
+      [nzPrecision]="precision"
+      [nzParser]="conversion"
+      (focusout)="cambiar()"
+      (change)="cambiar()"
+    />
+  </nz-form-control>
+</nz-form-item>

@@ -1,0 +1,62 @@
+<div class="contenedor" style="height: 85vh">
+  <nz-card class="margin-xlg padding-md">
+    <nz-row [nzGutter]="16">
+      <nz-col [nzSpan]="24" class="gutter-row">
+        <lib-grafico
+          *ngIf="graficoAgrupado"
+          [tamanyo]="[ancho, 300]"
+          [titulo]="'Conexiones / Milisegundos'"
+          [mostrarLeyenda]="true"
+          [tipoGrafico]="'barrasHorizontal'"
+          [grafico]="graficoAgrupado"
+        >
+        </lib-grafico>
+      </nz-col>
+    </nz-row>
+
+    <nz-row [nzGutter]="16" class="margin-top-xlg">
+      <nz-col [nzSpan]="24" class="gutter-row">
+        <lib-grafico
+          *ngIf="graficoEvolucion"
+          [tamanyo]="[ancho, 300]"
+          [titulo]="'Evolución conexiones'"
+          [mostrarLeyenda]="true"
+          [tipoGrafico]="'linea'"
+          [grafico]="graficoEvolucion"
+        >
+        </lib-grafico>
+      </nz-col>
+    </nz-row>
+  </nz-card>
+
+  <nz-card class="margin-xlg">
+
+    <nz-row class="margin-xlg">
+      <nz-col [nzSpan]="24" class="flex-start-center">
+        <h3 class="no-margin"><strong>Dades conexions</strong></h3>
+      </nz-col>
+    </nz-row>
+
+    <div class="tabla margin-xlg">
+      <nz-table #basicTable [nzLoading]="loading" [nzShowPagination]="true" [nzData]="auditoria">
+        <lib-columnas-tablas
+          *ngIf="!loading"
+          [ordenLocal]="true"
+          [(columnas)]="columnas"
+          [listasValores]="listasValores"
+          [elementos]="usuariosFiltrados"
+          (buscarEvent)="filtrar()"
+        />
+        <tbody>
+          <tr *ngFor="let dada of basicTable.data; index as i" (click)="editarElemento(dada)" class="pointer">
+            <td>{{ dada.data | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ dada.metode }}</td>
+            <td>{{ dada.url }}</td>
+            <td>{{ dada.user }}</td>
+            <td>{{ dada.tempsExecucio }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </nz-card>
+</div>

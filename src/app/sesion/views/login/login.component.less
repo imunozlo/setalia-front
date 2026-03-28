@@ -1,0 +1,88 @@
+:host {
+  //display: block;
+  //width: 35vw;
+  //margin: 0 auto;
+}
+
+
+.login-contenedor {
+  background-image: url('./../../../../assets/logos/fondo_login.png');
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  color: var(--Neutral-1, #FFFFFF);
+}
+
+
+.login-card {
+  margin-top: 50px;
+  margin-left: 8vw;
+  margin-right: 4vw;
+  background-color: #445975BF;
+  backdrop-filter: blur(20px);
+  padding: 20px;
+  width: 550px;
+  color: var(--Neutral-1, #FFFFFF);
+}
+
+.reset-card {
+  margin-top: 30px;
+  margin-left: 4vw;
+  margin-right: 4vw;
+  padding: 20px;
+  color: var(--Neutral-1, #FFFFFF);
+}
+
+.login-card h2,
+.login-card p,
+.login-card label,
+.login-card span,
+.login-card .lib-etiqueta,
+.login-card .lib-input,
+.login-card .lib-input-password {
+  color: #fff !important;
+}
+
+.login-card ::ng-deep nz-form-label,
+.login-card ::ng-deep nz-form-label strong,
+.login-card ::ng-deep nz-form-label span {
+  color: #fff !important;
+}
+
+.boton-acceder {
+  background-color: #ffffff !important;
+  color: #6b6b6b !important;
+  border: 1px solid #D9D9D9 !important;
+  border-radius: 4px !important;
+
+
+  i[nz-icon] {
+    color: #6b6b6b !important;
+    margin-right: 6px;
+  }
+
+  &:hover {
+    background-color: #f7f7f7 !important;
+    border-color: #bfbfbf !important; /* borde un poco más oscuro al hacer hover */
+  }
+}
+
+.fondo-login {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  /* Color base azul */
+  background-color: #1f3350; /* ajustado al Figma */
+
+  /* Imagen completa sin recortar */
+  background-image: url('./../../../../assets/logos/fondo_login.png');
+  background-repeat: no-repeat;
+  background-size: contain;     /* << La clave: NO RECORTA */
+  background-position: top;     /* << Alineado arriba EXACTO */
+
+  overflow: hidden;
+}
+
+
+

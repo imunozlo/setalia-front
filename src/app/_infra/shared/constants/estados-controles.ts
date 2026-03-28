@@ -1,0 +1,60 @@
+export const LISTA_ESTADOS_CONTROL_ORGANIZACION = [
+  {
+    orgId: 1,
+    estados: [
+      { valor: 1, nombre: 'estado.enCurso', activo: false },
+      { valor: 2, nombre: 'app.aprobar', activo: true },
+      { valor: 3, nombre: 'app.cancelar', activo: true },
+      { valor: 4, nombre: 'estado.finalizado.errores', activo: false },
+      { valor: 1, nombre: 'app.reabrir', activo: false },
+      { valor: 17, nombre: 'estado.pendiente', activo: false },
+      { valor: -1, nombre: 'app.historico', activo: true },
+      { valor: -2, nombre: 'configuracion.vista.grupos', activo: true },
+      { valor: -3, nombre: 'informe.control', activo: true },
+      { valor: -4, nombre: 'informe.personalizado.q.aporte.agua', activo: true },
+    ],
+    mapVistasEstado: [
+      {valor: "todos", estado: null },
+      {valor: "curso", estado: 1 },
+      {valor: "aprobado", estado: 2 },
+      {valor: "finalizadoErrores", estado: 4 },
+      {valor: "cancelado", estado: 3 },
+    ],
+    mapNombreEstados:
+      {TODOS: null ,
+      EN_CURSO: 1 ,
+      APROBADO: 2 ,
+      PENDIENTE: 17 ,
+      FINALIZADO_CON_ERRORES: 4 ,
+      CANCELADO: 3 },
+  },
+  {
+    orgId: 2,
+    estados: [
+      { valor: 13, nombre: 'app.aprobar', activo: true },
+      { valor: 12, nombre: 'estado.enCurso', activo: false },
+      { valor: 14, nombre: 'app.cancelar', activo: true },
+      { valor: 15, nombre: 'Rechazar', activo: true },
+      { valor: 12, nombre: 'app.reabrir', activo: false },
+      { valor: 16, nombre: 'estado.pendiente', activo: false },
+      { valor: -1, nombre: 'app.historico', activo: true },
+      { valor: -2, nombre: 'configuracion.vista.grupos', activo: true },
+      { valor: -3, nombre: 'informe.control', activo: true },
+      { valor: -4, nombre: 'informe.personalizado.q.aporte.agua', activo: true },
+    ],
+    mapVistasEstado: [
+      {valor: "todos", estado: null },
+      {valor: "curso", estado: 12 },
+      {valor: "aprobado", estado: 13 },
+      {valor: "finalizadoErrores", estado: 15 },
+      {valor: "cancelado", estado: 14 },
+    ],
+    mapNombreEstados:
+      { TODOS: null ,
+      EN_CURSO: 12 ,
+      APROBADO: 13 ,
+      PENDIENTE: 16 ,
+      FINALIZADO_CON_ERRORES: 15 ,
+      CANCELADO: 14 },
+  }
+];

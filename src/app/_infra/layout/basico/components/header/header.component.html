@@ -1,0 +1,15 @@
+<nz-row>
+  <nz-col [nzSpan]="8" class="flex-start-center">
+    <lib-breadcrumb></lib-breadcrumb>
+  </nz-col>
+  <nz-col [nzSpan]="16" class="flex-end-center">
+
+    <div (click)="mostrarPerfil()">
+      <span>{{ user.name }}</span>
+      <nz-avatar [nzSrc]="user.avatar" nzSize="small" class="margin-left-md mr-sm" />
+    </div>
+  </nz-col>
+</nz-row>
+
+<app-drawer-perfil-usuario #drawerPerfil></app-drawer-perfil-usuario>
+<!--<app-drawer-mensajes #drawerMensajes (refrescar)="cargarMensajes()"></app-drawer-mensajes>-->

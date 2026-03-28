@@ -1,0 +1,14 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+    <textarea style="font-size: 14px !important;"
+      [formControl]="control"
+      [nzAutosize]="rows"
+      [nzSize]="size"
+      [placeholder]="placeholder | i18n"
+      (focusout)="cambiar()"
+      (change)="cambiar()"
+      nz-input
+    >
+    </textarea>
+  </nz-form-control>
+</nz-form-item>

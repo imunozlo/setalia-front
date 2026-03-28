@@ -1,0 +1,33 @@
+<div class="flex-start flex-wrap row-gap-sm">
+  @if (mostrarTodas) {
+    @for (etiqueta of etiquetas; track $index) {
+      <nz-tag [ngClass]="classTag + ' tag'">
+        <i nz-icon [nzType]="'code-sandbox'"></i>
+        <span>1 {{ comprobarEtiqueta(etiqueta) }} </span>
+      </nz-tag>
+    }
+  }@else {
+    @for (etiqueta of etiquetas; track $index) {
+        <nz-tag [ngClass]="classTag + ' tag'" *ngIf="$index < maximoEtiquetasMostrar">
+          <i nz-icon [nzType]="'code-sandbox'"></i>
+          <span> {{ comprobarEtiqueta(etiqueta) }} </span>
+        </nz-tag>
+
+        <nz-tag [ngClass]="classTag + ' tag'" nz-dropdown [nzDropdownMenu]="menu" *ngIf="$index === maximoEtiquetasMostrar">
+          <i class="icono-more" nz-icon [nzType]="'more'"></i>
+        </nz-tag>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu class="padding-md">
+            @for (et of etiquetas; track $index) {
+              <li class="margin-bottom-df">
+                <nz-tag [ngClass]="classTag + ' tag'">
+                  <i nz-icon [nzType]="'code-sandbox'"></i>
+                  <span> {{ comprobarEtiqueta(et) }} </span>
+                </nz-tag>
+              </li>
+            }
+          </ul>
+        </nz-dropdown-menu>
+    }
+  }
+</div>

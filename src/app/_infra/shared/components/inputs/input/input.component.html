@@ -1,0 +1,36 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+
+    <!-- 🔹 Input con icono de usuario -->
+    <nz-input-group *ngIf="cambioUsuario" nzPrefixIcon="user">
+      <input
+        [appFocus]="autofocus"
+        nz-input
+        [type]="tipo"
+        [nzSize]="size"
+        [formControl]="control"
+        [placeholder]="placeholder | i18n"
+        (focusout)="focusOut()"
+        (keydown)="onKeyDown($event)"
+        (change)="cambiar()"
+        [class]="class"
+      />
+    </nz-input-group>
+
+    <!-- 🔹 Input normal (sin icono) -->
+    <input
+      *ngIf="!cambioUsuario"
+      [appFocus]="autofocus"
+      nz-input
+      [type]="tipo"
+      [nzSize]="size"
+      [formControl]="control"
+      [placeholder]="placeholder | i18n"
+      (focusout)="focusOut()"
+      (keydown)="onKeyDown($event)"
+      (change)="cambiar()"
+      [class]="class"
+    />
+
+  </nz-form-control>
+</nz-form-item>

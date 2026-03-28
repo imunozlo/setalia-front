@@ -1,0 +1,22 @@
+<nz-row>
+  <nz-col [nzSpan]="23">
+    <nz-upload
+      nzListType="picture-card"
+      [nzName]="'file'"
+      [nzAccept]="'image/*'"
+      [nzShowUploadList]="false"
+      [nzBeforeUpload]="comprobarArchivo"
+      [nzCustomRequest]="guardarArchivo"
+      [nzDisabled]="!editable"
+      [nzHeaders]="obtenerHeaders"
+    >
+      <div class="flex-start-center">
+        <p *ngIf="!archivoB64 && !upload" class="padding-sm">{{ 'app.nuevaImagen' | i18n }}</p>
+        <img *ngIf="archivoB64" [src]="archivoB64" [width]="200" class="margin-sm" style="border-radius: 4px" alt="'app.imagen'" />
+      </div>
+    </nz-upload>
+  </nz-col>
+  <nz-col [nzSpan]="1" class="flex-center-center pointer">
+    <i class="icon-tabla margin-left-sm" *ngIf="archivoB64 && !upload && editable" nz-icon nzType="delete" (click)="eliminar()"></i>
+  </nz-col>
+</nz-row>

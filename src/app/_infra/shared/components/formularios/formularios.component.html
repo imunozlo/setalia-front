@@ -1,0 +1,212 @@
+<nz-row class="margin-top-md">
+  <nz-col [nzOffset]="formulario.alertasOffset" [nzSpan]="formulario.alertasSpan">
+    <lib-alertas [errorFormulario]="errorFormulario" [errorFormularioText]="errorFormularioText" [tipo]="'error'" />
+  </nz-col>
+</nz-row>
+
+<form nz-form [formGroup]="form">
+  <!--nz-row class="flex-center" *ngIf="modelo">
+    <ng-container *ngFor="let campo of formulario.campos"-->
+
+  <lib-campos-formulario
+    [campos]="camposVisibles"
+    [(modelo)]="modelo"
+    [listasValores]="listasValores"
+    [id]="id"
+    [form]="form"
+    (campoRelacionadoChange)="campoRelacionadoChange.emit($event)"
+    (eventClickHover)="eventClickHover.emit($event)"
+    (campoSwitchChange)="campoSwitchChange.emit($event)"
+    (validarFormularioChange)="validarFormulario()"
+  >
+  </lib-campos-formulario>
+
+  <span class="flex-center-center" *ngIf="hayOcultos" style="cursor: pointer; margin-bottom: 10px">
+    <i class="icono-tabla" nz-icon nzType="caret-down" *ngIf="hayOcultos && !mostrarOcultos" (click)="mostrarOcultos = !mostrarOcultos"></i>
+    <i class="icono-tabla" nz-icon nzType="caret-up" *ngIf="hayOcultos && mostrarOcultos" (click)="mostrarOcultos = !mostrarOcultos"></i>
+  </span>
+
+  <lib-campos-formulario
+    *ngIf="hayOcultos && mostrarOcultos"
+    [campos]="camposOcultos"
+    [(modelo)]="modelo"
+    [listasValores]="listasValores"
+    [id]="id"
+    [form]="form"
+    (campoRelacionadoChange)="campoRelacionadoChange.emit($event)"
+    (eventClickHover)="eventClickHover.emit($event)"
+    (campoSwitchChange)="campoSwitchChange.emit($event)"
+  >
+  </lib-campos-formulario>
+  <!--nz-col [nzSpan]="campo.etiqueta.tamanyo" style="margin-bottom: 10px;">
+        <lib-etiqueta
+          *ngIf="!campo.blank"
+          (eventClickHover)="eventClickHover.emit()"
+          [etiqueta]="campo.etiqueta.nombre"
+          [bold]="campo.etiqueta.bold"
+          [obligatorio]="campo.obligatorio"
+          [icono]="campo.etiqueta.icono"
+          [iconoHover]="campo.etiqueta.iconoHover"
+          [class]="campo.etiqueta.class"
+        />
+      </nz-col>
+      <nz-col [nzSpan]="campo.input.tamanyo" style="margin-bottom: 10px;">
+        <lib-input
+          *ngIf="esText(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+          (cambioChange)="validarFormulario()"
+        />
+
+        <lib-input-hour
+          *ngIf="esHour(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+          (cambioChange)="validarFormulario(); volverRelacion(modelo[campo.input.valor], campo.input.relacionado, campo.input.nombre)"
+        />
+
+        <lib-input-number
+          *ngIf="esNumero(campo)"
+          [step]="campo.input.step ? campo.input.step : 1"
+          [min]="campo.input.min"
+          [max]="campo.input.max"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+          (cambioChange)="validarFormulario(); volverRelacion(modelo[campo.input.valor], campo.input.relacionado, campo.input.nombre)"
+        />
+
+        <lib-input-date
+          *ngIf="esFecha(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+          (cambioChange)="validarFormulario()"
+          [fechaMaxima]="modelo[campo.input.fechaMaxima]"
+          [fechaMinima]="modelo[campo.input.fechaMinima]"
+        />
+
+        <lib-input-date-range
+          *ngIf="esRangoFecha(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+          (cambioChange)="validarFormulario()"
+        />
+
+        <lib-input
+          *ngIf="esContrasenya(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          (cambioChange)="validarFormulario()"
+          [control]="form.controls[campo.input.nombre]"
+          [tipo]="'password'"
+        />
+
+        <lib-input-select
+          *ngIf="esLista(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [campoOrden]="campo.input.orden ? campo.input.orden : 'descripcion'"
+          [campo]="campo.input.listaDescripcion ? campo.input.listaDescripcion : 'descripcion'"
+          [control]="form.controls[campo.input.nombre]"
+          [elementos]="listasValores[campo.input.lista]"
+          [ocultarNoActivos]="campo.input.ocultarNoActivos"
+          (cambioValor)="validarFormulario(); volverRelacion(modelo[campo.input.valor], campo.input.relacionado, campo.input.nombre)"
+        />
+
+        <lib-input-select-multiple
+          *ngIf="esListaMultiple(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [campoOrden]="campo.input.orden ? campo.input.orden : 'descripcion'"
+          [campo]="campo.input.listaDescripcion ? campo.input.listaDescripcion : 'descripcion'"
+          [elementos]="listasValores[campo.input.lista]"
+          [control]="form.controls[campo.input.nombre]"
+          (cambioValor)="validarFormulario()"
+        />
+
+        <lib-input-select-tree
+          *ngIf="esListaTree(campo)"
+          [elementos]="listasValores[campo.input.lista]"
+          [(valor)]="modelo[campo.input.valor]"
+          [control]="form.controls[campo.input.nombre]"
+          (cambioValor)="validarFormulario()"
+          [idItem]="id"
+        />
+
+        <lib-input-textarea
+          *ngIf="esTextArea(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+          [rows]="obtenerTamanyoTextArea(campo)"
+          (cambioChange)="validarFormulario()"
+        />
+
+        <lib-input-editor
+          *ngIf="esEditor(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+          [rows]="obtenerTamanyoTextArea(campo)"
+          (cambioChange)="validarFormulario()"
+        />
+
+        <lib-input-switch
+          *ngIf="esSwitch(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          (cambioValor)="volverSwitch(modelo[campo.input.valor], campo.etiqueta.nombre)"
+        />
+
+        <lib-input-select-search
+          *ngIf="esListaBuscador(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+          [caracteresBusqueda]="campo.input.caracteresBusqueda"
+          [elementos]="listasValores[campo.input.lista]"
+        />
+
+        <lib-input-date-range
+          *ngIf="esRangoMes(campo)"
+          [tipo]="'month'"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+        />
+
+        <lib-input-date
+          *ngIf="esMes(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [tipo]="'month'"
+          [control]="form.controls[campo.input.nombre]"
+          (cambioChange)="validarFormulario()"
+        />
+
+        <lib-progress-bar
+          *ngIf="esProgressBar(campo)"
+          [(valor)]="modelo[campo.input.valor]"
+          [disabled]="campo.input.disabled"
+          [control]="form.controls[campo.input.nombre]"
+        />
+
+        <lib-tags-relacionadas
+          *ngIf="esEtiquetas(campo)"
+          [etiquetas]="modelo[campo.input.valor]"
+        />
+
+          <ng-container *ngIf="esTextoSinInput(campo)">
+            <ng-container *ngIf="campo.input.esFecha">
+              {{ modelo[campo.input.valor] | date: 'dd/MM/yyyy' }}
+            </ng-container>
+            <ng-container *ngIf="!campo.input.esFecha">
+              {{ modelo[campo.input.valor] }}
+            </ng-container>
+          </ng-container>
+      </nz-col>
+    </!--ng-container>
+  </nz-row-->
+</form>

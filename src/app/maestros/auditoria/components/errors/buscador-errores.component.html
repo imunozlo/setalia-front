@@ -1,0 +1,62 @@
+<div class="contenedor" style="height: 85vh">
+  <nz-card class="margin-xlg padding-md">
+    <nz-row [nzGutter]="16">
+      <nz-col [nzSpan]="24" class="gutter-row">
+        <lib-grafic
+          *ngIf="graficoAgrupado"
+          [tamanyo]="[ample, 300]"
+          [titulo]="'Errors per nivell de log'"
+          [mostrarLeyenda]="true"
+          [tipusGrafic]="'barresHorizontal'"
+          [grafic]="graficoAgrupado"
+        >
+        </lib-grafic>
+      </nz-col>
+    </nz-row>
+
+    <nz-row [nzGutter]="16" class="margin-top-xlg">
+      <nz-col [nzSpan]="24" class="gutter-row">
+        <lib-grafic
+          *ngIf="graficoEvolucion"
+          [tamanyo]="[ample, 300]"
+          [titulo]="'Evolució errors per nivell de log'"
+          [mostrarLeyenda]="true"
+          [tipusGrafic]="'linea'"
+          [grafic]="graficoEvolucion"
+        >
+        </lib-grafic>
+      </nz-col>
+    </nz-row>
+  </nz-card>
+
+  <nz-card class="margin-xlg">
+
+    <nz-row class="margin-xlg">
+      <nz-col [nzSpan]="24" class="flex-start-center">
+        <h3 class="no-margin"><strong>Dades errors</strong></h3>
+      </nz-col>
+    </nz-row>
+
+    <div class="tabla margin-xlg">
+      <nz-table #basicTable [nzLoading]="loading" [nzShowPagination]="true" [nzData]="logs">
+        <lib-columnas-tablas
+          *ngIf="!loading"
+          [ordenLocal]="true"
+          [(columnas)]="columnas"
+          [listasValores]="listasValores"
+          [elementos]="usuariosFiltrados"
+          (buscarEvent)="filtrar()"
+        />
+        <tbody>
+          <tr *ngFor="let dada of basicTable.data; index as i" (click)="editarElemento(dada)" class="pointer">
+            <td>{{ dada.data | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ dada.metode }}</td>
+            <td>{{ dada.nivellLog }}</td>
+            <td>{{ dada.user }}</td>
+            <td>{{ dada.clase }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </nz-card>
+</div>

@@ -1,0 +1,52 @@
+@import './color';
+.fila-invalida {
+  background-color: #fff1f0; /* rojo claro */
+}
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 38px;
+  text-align: left;
+}
+
+.text-default {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.icon-danger {
+  color: #ff4d4f;
+}
+
+.text-disabled-through {
+  color: #000;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.icon-primary {
+  color: @primary-color;
+}
+
+.icon-tabla {
+  color: @primary-color;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.text-overflow {
+  display: -webkit-box; /* Define un contenedor flexible */
+  -webkit-box-orient: vertical; /* Define la orientación vertical */
+  -webkit-line-clamp: 3; /* Limita el texto a 3 líneas */
+  overflow: hidden;
+}

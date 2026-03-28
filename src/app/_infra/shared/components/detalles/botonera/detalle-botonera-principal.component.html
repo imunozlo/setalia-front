@@ -1,0 +1,41 @@
+<div class="flex-end-center margin-left-xlg margin-right-xlg">
+  <button *ngIf="botoneraExtra && botoneraExtra.length > 0" [acl]="permisos" class="margin-left-sm" nz-button nz-dropdown [nzDropdownMenu]="menu">
+    {{ 'app.acciones' | i18n }} <i nz-icon nzType="down"></i>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li
+        *ngFor="let boton of botoneraExtra"
+        nz-menu-item
+        (click)="opcionExtra(boton)"
+        >{{ boton.nombre | i18n }}</li
+      >
+    </ul>
+  </nz-dropdown-menu>
+  <lib-boton
+    [acl]="permisos"
+    *ngIf="mostrarEliminar"
+    class="margin-left-sm"
+    (click)="eliminarEvent.emit()"
+    [titulo]="tituloEliminar | i18n"
+  />
+  @if (esFinal){
+    <lib-boton-guardar
+      class="margin-left-sm"
+      [acl]="permisos"
+      (guardarEvent)="reabrirEvent.emit()"
+      
+      [disabled]="disabled"
+      [titulo]="tituloReabrir | i18n"
+    />
+  }@else {
+    <lib-boton-guardar
+      class="margin-left-sm"
+      [acl]="permisos"
+      (guardarEvent)="guardarEvent.emit()"
+      
+      [disabled]="disabled"
+      [titulo]="tituloGuardar | i18n"
+    />
+  }
+</div>

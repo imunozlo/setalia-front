@@ -1,0 +1,124 @@
+.contenedor {
+  overflow: auto;
+  /*Estilos estándar experimentales (Principalmente Firefox)*/
+  scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
+  height: 100%;
+}
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+.contenedor::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.contenedor::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+.contenedor::-webkit-scrollbar-button:increment,
+.contenedor::-webkit-scrollbar-button {
+  display: none;
+}
+
+.contenedor::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.contenedor::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 4px;
+  border: 2px solid #f1f2f3;
+}
+
+.contenedor::-webkit-scrollbar-track {
+  border-radius: 4px;
+}
+
+.contenedormini {
+  overflow: auto;
+  /*Estilos estándar experimentales (Principalmente Firefox)*/
+  scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
+  height: 20%;
+}
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+.contenedormini::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.contenedormini::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+.contenedormini::-webkit-scrollbar-button:increment,
+.contenedormini::-webkit-scrollbar-button {
+  display: none;
+}
+
+.contenedormini::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.contenedormini::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 4px;
+  border: 2px solid #f1f2f3;
+}
+
+.contenedormini::-webkit-scrollbar-track {
+  border-radius: 4px;
+}
+
+/* More specific selector */
+nz-table.custom-scrollbar .ant-table-body {
+  scrollbar-width: thin;
+}
+
+nz-table.custom-scrollbar .ant-table-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+nz-table.custom-scrollbar .ant-table-body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.contenedor-sin-altura {
+  overflow: auto;
+  /*Estilos estándar experimentales (Principalmente Firefox)*/
+  scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
+}
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+.contenedor-sin-altura::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.contenedor-sin-altura::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+.contenedor-sin-altura::-webkit-scrollbar-button:increment,
+.contenedor-sin-altura::-webkit-scrollbar-button {
+  display: none;
+}
+
+.contenedor-sin-altura::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.contenedor-sin-altura::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 4px;
+  border: 2px solid #f1f2f3;
+}
+
+.contenedor-sin-altura::-webkit-scrollbar-track {
+  border-radius: 4px;
+}

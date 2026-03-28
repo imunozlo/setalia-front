@@ -1,0 +1,11 @@
+<button
+  style="display: flex; justify-content: center; align-items: center"
+  [nzSize]="size"
+  nzType="primary"
+  [disabled]="disabled"
+  [nzBlock]="nzBlock"
+  (click)="guardar()"
+  nz-button
+>
+  <span>{{ titulo | i18n }}</span>
+</button>

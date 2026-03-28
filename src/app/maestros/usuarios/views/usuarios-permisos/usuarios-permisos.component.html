@@ -1,0 +1,23 @@
+<nz-card class="margin-xlg altura">
+  <div class="configuracion">
+    <nz-row>
+      <nz-col [nzSpan]="12">
+        <lib-titulo-detalle [titulo]="'configuracion.titulo'" />
+      </nz-col>
+      <nz-col [nzSpan]="12">
+
+      </nz-col>
+    </nz-row>
+
+    <div class="margin-left-md margin-right-md">
+      <nz-tabset [(nzSelectedIndex)]="seleccionado">
+        <nz-tab [nzTitle]="'configuracion.usuarios' | i18n">
+          <app-cercador-usuarios #usuarios />
+        </nz-tab>
+        <nz-tab [nzTitle]="'configuracion.permisos' | i18n">
+          <app-buscador-permisos (refrescar)="refrescar()" *ngIf="seleccionado === 1" />
+        </nz-tab>
+      </nz-tabset>
+    </div>
+  </div>
+</nz-card>

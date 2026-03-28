@@ -1,0 +1,29 @@
+<nz-drawer
+  *ngIf="rol"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="abierto"
+  [nzTitle]="titulo | i18n"
+  [nzExtra]="extraTpl"
+  [nzFooter]="rol.id ? footerTpl : null"
+  (nzOnClose)="cerrar()"
+>
+  <div *nzDrawerContent>
+    <lib-formularios [formulario]="formulario" [(estado)]="formularioValid" [listasValores]="listasValores" [(modelo)]="rol" />
+  </div>
+
+  <ng-template #extraTpl>
+    <div class="flex-end-center">
+      <lib-boton-guardar (guardarEvent)="guardar()" [disabled]="!formularioValid" [titulo]="'app.guardar'" />
+    </div>
+  </ng-template>
+
+  <ng-template #footerTpl>
+    <div *ngIf="rol.id">
+      <div class="margin-bottom-md">
+        <lib-boton (click)="eliminarRol()" [titulo]="'configuracion.eliminarRol'" [nzBlock]="true" />
+      </div>
+    </div>
+  </ng-template>
+</nz-drawer>

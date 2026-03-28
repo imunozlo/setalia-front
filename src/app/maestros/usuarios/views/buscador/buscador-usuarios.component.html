@@ -1,0 +1,54 @@
+<div class="card altura">
+  <app-skelteon *ngIf="loading" [files]="15"></app-skelteon>
+
+  <div class="buscador-paginacion" *ngIf="!loading">
+    <lib-tabla-botonera-principal
+      [mostrarFiltro]="false"
+      [mostrarExportar]="false"
+      [titulo]="'configuracion.usuarios'"
+      (refrescarFiltrosEvent)="limpiarFiltros()"
+    />
+
+    <div class="contenedor tabla">
+      <nz-table #basicTable [nzLoading]="loading" [nzShowPagination]="false" [nzData]="usuariosFiltrados">
+        <lib-columnas-tablas
+          *ngIf="!loading"
+          [ordenLocal]="true"
+          [(columnas)]="columnas"
+          [listasValores]="listasValores"
+          [elementos]="usuariosFiltrados"
+          (buscarEvent)="filtrar()"
+        />
+        <tbody>
+          <tr *ngFor="let dato of basicTable.data; index as i" (click)="editarElemento(dato)" class="pointer">
+            <td>
+              <nz-avatar-group>
+                <nz-avatar [nzSrc]="dato.avatar" nzSize="small" class="mr-sm"></nz-avatar>
+              </nz-avatar-group>
+            </td>
+            <td>{{ dato.nombre }}</td>
+            <td>{{ dato.apellidos }}</td>
+            <td>{{ dato.usuario }}</td>
+            <td>{{ dato.email }}</td>
+            <td>{{ dato.telefono }}</td>
+            <td>{{ dato.rolesDescripcion }}</td>
+            <td>
+              <lib-tabla-activo [activo]="dato.activo" />
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+
+    <lib-tabla-botonera-secundaria
+      [loading]="loading"
+      [filtros]="filtros"
+      [ocultarPaginacion]="false"
+      (nuevoEvent)="nuevoElemento()"
+      [permisos]="'MODULO_CONFIGURACION_USUARIOS_EDICION'"
+      [tituloNuevo]="'configuracion.nuevoUsuario'"
+      (filtrar)="filtrarPaginacion($event)"
+    />
+  </div>
+</div>
+<app-drawer-usuario #drawerUsuario *ngIf="!loading" (refrescar)="filtrar()" />

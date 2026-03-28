@@ -1,0 +1,38 @@
+<nz-drawer
+  *ngIf="usuario"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="640"
+  [nzVisible]="abierto"
+  [nzTitle]="'app.perfil' | i18n"
+  [nzExtra]="extraTpl"
+  [nzFooter]="edicion ? footerTpl : null"
+  (nzOnClose)="cerrar()"
+>
+  <div *nzDrawerContent>
+    <nz-row>
+      <nz-col [nzOffset]="8" [nzSpan]="16">
+        <lib-input-upload-image *ngIf="usuario" [id]="usuario.id" [tipo]="'USUARIOS'" [editable]="true" (refrescar)="cambiarAvatar()"></lib-input-upload-image>
+      </nz-col>
+    </nz-row>
+    <lib-formularios *ngIf="!loading && usuario" [formulario]="formulario" [(estado)]="formularioValid" [modelo]="usuario"></lib-formularios>
+  </div>
+
+  <ng-template #extraTpl>
+    <!--div class="flex-end-center">
+      <lib-boton class="margin-right-sm" (click)="cerrar()" [titulo]="'app.cancelar'" />
+      <lib-boton-guardar *ngIf="edicion" (guardarEvent)="guardar()" [disabled]="!formularioValid" [titulo]="'app.guardar'" />
+    </!--div-->
+  </ng-template>
+
+  <ng-template #footerTpl>
+    <div class="flex-between-center">
+      <lib-boton (click)="cambiarContrasenya()"
+                 [color]="'#1f1f1f'"
+                 [colorFondo]="'#FFF'"
+                 [titulo]="'app.cambiarContrasenya'"  />
+      <lib-boton (click)="cerrarSesion()" [titulo]="'app.cerrarSesion'"  />
+
+    </div>
+  </ng-template>
+</nz-drawer>

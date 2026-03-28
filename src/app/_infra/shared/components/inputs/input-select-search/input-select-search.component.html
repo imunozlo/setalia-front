@@ -1,0 +1,34 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+    <div nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+      <input
+        nz-input
+        type="text"
+        [nzSize]="size"
+        [formControl]="control"
+        [type]="tipo"
+        [placeholder]="placeholder | i18n"
+        (input)="filtrarElementos()"
+        (focusout)="cambiar()"
+        (change)="cambiar()"
+      />
+    </div>
+  </nz-form-control>
+</nz-form-item>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu *ngIf="elementosFiltrados && elementosFiltrados.length > 0" style="overflow: auto; max-height: 25vh;">
+    <li nz-menu-item *ngFor="let elemento of elementosFiltrados" (click)="seleccionar(elemento)">
+      @if (elemento.descripcionCompleta != ''){
+        {{ elemento.descripcionCompleta }} 
+      }@else{
+        {{ elemento.descripcion }}
+      }
+    </li>
+  </ul>
+  <ul nz-menu *ngIf="!elementosFiltrados || elementosFiltrados.length === 0">
+    <li>
+      <nz-empty></nz-empty>
+    </li>
+  </ul>
+</nz-dropdown-menu>

@@ -1,0 +1,25 @@
+<nz-row *ngIf="modelo" style="display: flex; align-items: center">
+  <ng-container *ngFor="let campo of etiquetas">
+    <nz-col [nzSpan]="campo.tamanyo" style="margin-bottom: 10px">
+      <lib-etiqueta [etiqueta]="campo.nombre" [bold]="true" [obligatorio]="false" />
+    </nz-col>
+
+    <nz-col [nzSpan]="campo.tamanyoValor" style="margin-bottom: 10px">
+      <lib-input *ngIf="esText(campo)" [valor]="modelo[campo.valor]" [disabled]="true" />
+      <lib-input
+        *ngIf="esNumero(campo)"
+        [valor]="modelo[campo.valor] | number: (campo.formatoNumero ? campo.formatoNumero : '1.2-2')"
+        [disabled]="true"
+      />
+      <lib-input *ngIf="esMoneda(campo)" [valor]="modelo[campo.valor] | moneda: '2'" [disabled]="true" />
+      <lib-input *ngIf="esFecha(campo)" [valor]="modelo[campo.valor] | date: campo.formatoFecha" [disabled]="true" />
+      <lib-input *ngIf="esHora(campo)" [valor]="modelo[campo.valor] | horasMinutos" [disabled]="true" />
+      <lib-input-textarea
+        *ngIf="esTextArea(campo)"
+        [valor]="modelo[campo.valor]"
+        [disabled]="true"
+        [rows]="obtenerTamanyoTextArea(campo)"
+      />
+    </nz-col>
+  </ng-container>
+</nz-row>

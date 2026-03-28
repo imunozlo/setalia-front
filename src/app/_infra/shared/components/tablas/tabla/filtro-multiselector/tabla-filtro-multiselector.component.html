@@ -1,0 +1,10 @@
+<div style="background-color: white; max-height: 40vh; overflow-x: auto; overflow-y: auto" class="container-scroll padding-xlg">
+  <input nz-input type="text" [nzSize]="'small'" [(ngModel)]="filtro" [placeholder]="'app.buscar' | i18n" (change)="filtrar()" />
+
+  <div *ngFor="let elemento of elementosFiltrados" style="width: 400px">
+    <div class="margin-top-md">
+      <lib-input-checkbox [(valor)]="elemento.checked" [etiqueta]="elemento[campoDescripcion]" (cambioValor)="seleccionarValores()">
+      </lib-input-checkbox>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div>
+  <p *ngIf="pregunta" [ngClass]="pregunta ? 'margin-bottom-md': ''">
+    {{ pregunta | i18n }}
+  </p>
+  <nz-row>
+    <nz-col [nzSpan]="24" class="flex-end-center">
+      <button nz-button nzType="text" class="margin-right-sm" (click)="seleccionar(false)">
+        <span>{{ cancelar | i18n }}</span>
+      </button>
+      <button nz-button nzType="primary" (click)="seleccionar(true)">
+        <span>{{ aceptar | i18n }}</span>
+      </button>
+    </nz-col>
+  </nz-row>
+</div>

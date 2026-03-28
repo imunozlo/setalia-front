@@ -1,0 +1,122 @@
+<div class="containerSidebarGrid">
+  <div class="sidebarGrid">
+    <div class="sidebar-principal">
+      <div *ngIf="sidebarAbierto" class="flex-start-center margin-top-md margin-bottom-xlg">
+        <img class="margin-right-sm pointer" width="200" src="./assets/logos/logo_sidebar.png" (click)="inicio()" />
+      </div>
+
+      <div *ngIf="!sidebarAbierto" class="flex-center-center margin-top-md margin-bottom-xlg">
+        <img class="margin-right-sm pointer" width="70" src="../../../../../../assets/logos/imagotipo.png" (click)="inicio()" />
+      </div>
+
+      <div *ngIf="modulos && modulos.length > 0">
+        <div *ngFor="let opcion of modulosPrincipales">
+          <div class="sidebar-menu-opcion" [ngClass]="{ 'sidebar-menu-seleccionado': opcion.seleccionado }" (click)="mostrar(opcion)">
+            <div class="flex-start-center">
+              <span
+                class="margin-right-md"
+                style="font-size: 13px; margin-left: 4px"
+                nz-icon
+                [nzType]="opcion.icono"
+                nzTheme="outline"
+              ></span>
+              <span *ngIf="sidebarAbierto">{{ opcion.subtitulo | i18n }}</span>
+            </div>
+
+            <div>
+              <span *ngIf="opcion.cabecera && !opcion.abierta" nz-icon [nzType]="'right'" nzTheme="outline"></span>
+              <span *ngIf="opcion.cabecera && opcion.abierta" nz-icon [nzType]="'down'" nzTheme="outline"></span>
+            </div>
+          </div>
+
+          <!-- Añadimos las segundas opciones -->
+
+          <div *ngIf="opcion.cabecera && opcion.abierta" style="margin-left: 15px; padding: 4px; margin-bottom: 4px">
+            <div *ngFor="let opcion of opcion.opciones" (click)="mostrar(opcion)">
+              <div class="sidebar-menu-opcion-segunda" [ngClass]="{ 'sidebar-menu-seleccionado': opcion.seleccionado }">
+                <div class="flex-start-center">
+                  <span
+                    class="margin-right-md"
+                    style="font-size: 13px; margin-left: 4px"
+                    nz-icon
+                    [nzType]="opcion.icono"
+                    nzTheme="outline"
+                  ></span>
+                  <span *ngIf="sidebarAbierto">{{ opcion.subtitulo | i18n }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: end; height: 100%">
+<!--      <div class="sidebar-menu">
+        <div *ngFor="let opcion of modulosSecundarios">
+          <div class="sidebar-menu-opcion" [ngClass]="{ 'sidebar-menu-seleccionado': opcion.seleccionado }" (click)="mostrar(opcion)">
+            <div class="flex-start-center">
+              <span
+                class="margin-right-md"
+                style="font-size: 13px; margin-left: 4px"
+                nz-icon
+                [nzType]="opcion.icono"
+                nzTheme="outline"
+              ></span>
+              <span *ngIf="sidebarAbierto">{{ opcion.subtitulo | i18n }}</span>
+            </div>
+
+            <div>
+              <span *ngIf="opcion.cabecera && !opcion.abierta" nz-icon [nzType]="'right'" nzTheme="outline"></span>
+              <span *ngIf="opcion.cabecera && opcion.abierta" nz-icon [nzType]="'down'" nzTheme="outline"></span>
+            </div>
+          </div>
+          &lt;!&ndash; Añadimos las segundas opciones &ndash;&gt;
+
+          <div *ngIf="opcion.cabecera && opcion.abierta" style="margin-left: 15px; padding: 4px; margin-bottom: 4px">
+            <div *ngFor="let opcion of opcion.opciones" (click)="mostrar(opcion)">
+              <div class="sidebar-menu-opcion-segunda" [ngClass]="{ 'sidebar-menu-seleccionado': opcion.seleccionado }">
+                <div class="flex-start-center">
+                  <span
+                    class="margin-right-md"
+                    style="font-size: 13px; margin-left: 4px"
+                    nz-icon
+                    [nzType]="opcion.icono"
+                    nzTheme="outline"
+                  ></span>
+                  <span *ngIf="sidebarAbierto">{{ opcion.subtitulo | i18n }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>-->
+    </div>
+      <div class="sidebar_botonera" *ngIf="sidebarAbierto">
+<!--        <lib-boton
+          (click)="cambiarEstado.emit()"
+          [icono]="'logout'"
+          [color]="'#FFFFFF'"
+        />-->
+        <lib-boton
+          [titulo]="'app.salir'"
+          [icono]="'logout'"
+          (click)="cerrarSesion()"
+          [color]="'#FFFFFF'"
+        />
+      </div>
+      <div class="sidebar_botonera_plegada" *ngIf="!sidebarAbierto">
+<!--        <lib-boton
+          (click)="cambiarEstado.emit()"
+          [icono]="'logout'"
+          [color]="'#FFFFFF'"
+        />-->
+        <lib-boton
+          [titulo]="'app.salir'"
+          [icono]="'logout'"
+          (click)="cerrarSesion()"
+          [color]="'#FFFFFF'"
+        />
+      </div>
+  </div>
+</div>

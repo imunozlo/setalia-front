@@ -1,0 +1,10 @@
+<nz-tag nzColor="success" *ngIf="activo">
+  <span nz-icon nzType="check-circle"></span>
+  <span>{{textoActivo | i18n}}</span>
+</nz-tag>
+<nz-tag nzColor="default" *ngIf="!activo">
+  <span nz-icon nzType="minus-circle"></span>
+  <span>{{textoInactivo | i18n}}</span>
+</nz-tag>
+
+

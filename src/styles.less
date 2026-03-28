@@ -1,0 +1,711 @@
+@import '@delon/abc/index';
+@import '@delon/theme/layout-default/style/index';
+@import '@delon/theme/layout-blank/style/index';
+@import '@delon/theme/index';
+@import '@delon/theme/system/index';
+@import '@delon/chart/index';
+@import './styles/flex';
+@import './styles/margin';
+@import './styles/text';
+@import './styles/color';
+@import './styles/antd';
+@import './styles/scrollbar';
+@import './styles/layout';
+
+:root {
+  font-family: Inter, sans-serif !important;
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1 !important;
+  /* fix for Chrome */
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif !important;
+  }
+}
+
+body {
+  font-family: Quicksand, sans-serif !important;
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1 !important;
+  /* fix for Chrome */
+  overflow: hidden !important;
+  font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Poppins, sans-serif !important;
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1 !important;
+  overflow: hidden !important;
+  color: #1b1b1b;
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+h5 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.bolder {
+  font-weight: 800;
+}
+
+.altura {
+  height: calc(100vh - 112px);
+}
+
+.card {
+  // margin-left: 20px;
+  // margin-top: 10px;
+  // margin-bottom: 20px;
+  // margin-right: 10px;
+  // margin: 10px 20px 20px 10px;
+  // background-color: #7895AB;
+}
+
+.ant-card {
+  border-radius: 4px;
+}
+
+.card-controles-pendientes {
+  height: 100%;
+  box-shadow: 0px 4px 10px 4px #00000026;
+}
+
+.card-controles-pendientes .ant-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-controles-pendientes .custom-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  flex-basis: 55px;
+}
+
+.card-controles-pendientes .custom-body {
+  flex-basis: 95px;
+  flex-grow: 1;
+}
+
+.card-controles-pendientes .custom-footer {
+  flex-basis: 55px;
+}
+
+.card-controles-pendientes .custom-header span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.card-controles-pendientes .custom-body,
+.card-controles-pendientes .custom-footer {
+  padding-left: 56px;
+  padding-right: 16px;
+}
+
+.card-controles-pendientes .custom-body .fecha {
+  font-size: 12px;
+  font-weight: 400;
+  padding-bottom: 8px;
+}
+
+.card-controles-pendientes .custom-body .contenedor-etiquetas {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tag {
+  border-radius: 4px !important;
+  padding: 4px;
+  border: 1px solid;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.tag.tag-producto {
+  border-color: #afe9ea;
+  background-color: #e4f8f8;
+  color: #64bdbe;
+}
+
+.tag.tag-plantilla {
+  border-color: #d3adf7;
+  background-color: #f9f0ff;
+  color: #722ed1;
+}
+
+.card-controles-pendientes .custom-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 16px 18px;
+  margin-top: 8px;
+}
+
+.card-controles-pendientes .ant-card-actions {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding: 16px;
+}
+
+.card-controles-pendientes .badge-dashboard {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+}
+
+.card-controles-pendientes .badge-warning {
+  background-color: #ffc53d;
+}
+
+.card-controles-pendientes .badge-danger {
+  background-color: #ff4d4f;
+}
+
+.tabla {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.tabla tr.odd {
+  background-color: #fbfbfb;
+}
+
+.card-fondo {
+  // margin-left: 20px;
+  // margin-top: 10px;
+  // margin-bottom: 20px;
+  // margin-right: 10px;
+  background-color: #445975bf;
+  backdrop-filter: blur(20px);
+  border-radius: 4px;
+  padding: 24px;
+  min-height: 300px;
+  width: 100%;
+}
+
+.tabla-total {
+  background-color: #f0f0f0;
+  border: 1px solid #f0f0f0;
+}
+
+.modul {
+  border-top: 4px;
+  border-style: solid;
+}
+
+// Elemento activo en dropdown-desplegable
+.ant-dropdown-menu-item.active {
+  // background-color: @primary-color;
+  // color: #fff;
+  color: @primary-color;
+}
+
+// Elemento activo en el botón del desplegable
+button.ant-dropdown-trigger.no_general {
+  background-color: rgba(189, 39, 22, 0.1);
+}
+
+.icono {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.icono-more {
+  transform: rotate(90deg);
+}
+
+.boton-botonera-principal {
+  width: 32px;
+  height: 32px;
+  background: #64bdbe;
+  border-radius: 4px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
+.contenedor-botones {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  gap: 8px;
+}
+
+// Pagina detalle
+.detalle-contenedor {
+  // margin: 10px 10px 0px 20px;
+  padding: 20px;
+  color: #fff;
+  background-color: #445975bf;
+  border-radius: 4px;
+  display: grid;
+  grid-template-rows: auto 6fr 5%;
+  row-gap: 2em;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.detalle-contenedor .info_basica {
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-contenedor .ant-card-body {
+  padding: 10px !important;
+}
+
+.detalle-contenedor .botonera_principal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ant-btn {
+  border-radius: 4px !important;
+}
+
+// Drawer
+.ant-drawer-content {
+  background-color: #445975bf;
+  color: #fff;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.ant-drawer-body {
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-between;
+  // align-items: flex-start;
+  height: 100%;
+}
+
+.ant-drawer-header {
+  border-bottom: 1px solid transparent;
+}
+
+.ant-drawer-footer {
+  border-top: 1px solid transparent;
+  padding: 16px;
+}
+
+.ant-drawer-body .drawer-listado-control-valores .ant-table {
+  height: 800px;
+  overflow-y: scroll;
+  scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
+}
+
+.ant-switch {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2px;
+
+  width: 44px;
+  min-width: 44px;
+  max-width: 44px;
+  height: 22px;
+  min-height: 22px;
+  max-height: 22px;
+
+  background: #bfbfbf;
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  z-index: 1;
+}
+
+.ant-switch-checked {
+  background: #64bdbe;
+}
+
+.nz-switch {
+  margin: 0px;
+}
+
+.ant-switch-handle {
+  width: 18px;
+  height: 18px;
+
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 35, 11, 0.2);
+  border-radius: 4px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.ant-drawer-title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.ant-drawer-content .anticon-close,
+.ant-drawer-content .ant-form-item-label>label {
+  color: #fff;
+}
+
+// Dialogo formula
+.detalle-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-modal .ant-pagination li button,
+.detalle-modal .ant-pagination li a {
+  color: #000000d9 !important;
+}
+
+.detalle-modal .ant-pagination li.ant-pagination-disabled button {
+  color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.detalle-modal .ant-pagination li.ant-pagination-item-active a {
+  color: rgb(100, 189, 190) !important;
+}
+
+.detalle-modal .ant-pagination li:not(.ant-pagination-disabled):hover button,
+.detalle-modal .ant-pagination li:not(.ant-pagination-item-active):hover a {
+  color: #79dbdc !important;
+}
+
+.detalle-modal .contenedor-indicadores-modal {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 220px;
+  gap: 8px;
+  column-gap: 16px;
+}
+
+.detalle-modal .contenedor-indicadores-modal .indicador {
+  background-color: #79dbdc;
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.detalle-modal .contenedor-indicadores-modal .indicador:hover {
+  background-color: #79dbdc80;
+}
+
+.detalle-modal.modal-formula>.ant-row {
+  border-bottom: 1px solid #bfbfbf;
+  padding: 8px 0;
+}
+
+.detalle-modal>.ant-row:last-child {
+  border: none;
+}
+
+.detalle-modal .contenedor-operaciones {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.detalle-modal .contenedor-operaciones .operacion,
+.detalle-modal .contenedor-operaciones .operacion-compuesta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #79dbdc;
+  height: 24px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.detalle-modal .contenedor-operaciones .operacion {
+  width: 24px;
+}
+
+.detalle-modal .contenedor-operaciones .operacion-compuesta {
+  width: 74px;
+}
+
+.detalle-modal .contenedor-operaciones .operacion:hover,
+.detalle-modal .contenedor-operaciones .operacion-compuesta:hover {
+  background-color: #79dbdc80;
+}
+
+.detalle-modal .contenedor-operaciones .operacionValor i:hover {
+  color: #79dbdc80;
+}
+
+.detalle-modal .contenedor-formula {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  text-align: center;
+}
+
+.detalle-modal .contenedor-formula .formula-dato {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #79dbdc;
+  border-radius: 4px;
+  padding: 4px 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap; /* Mantiene cada fórmula en una sola línea */
+}
+
+.detalle-modal .contenedor-formula .formula-dato:hover {
+  background-color: #79dbdc80;
+}
+
+
+
+// Checkox ensayo-indicadores
+.info_relacionada .square-checked-activo svg {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  color: #fff;
+  border: 1px solid #cacaca;
+  cursor: pointer;
+}
+
+.info_relacionada .square-checked-activo svg:hover {
+  border-color: #79dbdc;
+  cursor: pointer;
+}
+
+.info_relacionada .square-checked-inactivo svg {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  color: #79dbdc;
+  cursor: pointer;
+}
+
+// Botonera ensayo-indicadores
+.botonera-listado-ensayo-indicador {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.botonera-listado-ensayo-indicador span {
+  width: 14px;
+  height: 14px;
+}
+
+.botonera-listado-ensayo-indicador span i,
+.botonera-listado-ensayo-indicador span svg {
+  width: 100%;
+  height: 100%;
+}
+
+// Stepper
+.contenedor-stepper {
+  padding: 24px;
+  width: 100%;
+}
+
+.contenedor-step {
+  padding: 16px;
+  width: 100%;
+}
+
+.header-step {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.indice-step {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 24px;
+  max-height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background-color: #79dbdc;
+}
+
+.indice-step span {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #124444;
+}
+
+.separador-step {
+  height: 2px;
+  border-radius: 2px;
+  background-color: #79dbdc;
+  width: 100%;
+}
+
+.body-step {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 12px;
+}
+
+.body-header-step {
+  text-align: center;
+  max-width: 150px;
+  margin: 0 auto;
+}
+
+.body-header-step h5 {
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.body-header-step p {
+  margin-bottom: 16px;
+  color: #e4f8f8;
+  line-height: 22px;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.body-content-step label {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.panel {
+  height: 10vh;
+  background-color: #fafafa;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.panel .contenedor-etiquetas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
+.pagination-left-position .ant-pagination {
+  justify-content: flex-start;
+}
+
+// Control Valores - Alertas
+.alertas-valores-control {
+  font-weight: 400;
+  line-height: 22px;
+  color: #8c8c8c;
+}
+
+// FIX Para el progress-barr del porcentaje en los formularios
+.ant-progress-text {
+  width: inherit;
+}
+
+.ant-progress-inner {
+  width: 98%;
+}
+
+.ant-progress-line .ng-star-inserted {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Agrupación de controles tabla
+.tabla.agrupacion_controles tbody tr:hover td {
+  background: transparent;
+}
+
+.tabla.agrupacion_controles tbody td:not(:first-child):hover {
+  background: #f8f8f8 !important;
+  /* Color personalizado */
+  transition: background 0.3s;
+}
+
+.tabla.agrupacion_controles tbody td.celda_vacia,
+.tabla.agrupacion_controles tbody td.celda_vacia:hover {
+  background-color: #fbfbfb !important;
+  transition: none;
+}
+
+.ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+  height: 100%;
+}
+
+.tabla.agrupacion_controles .ant-table-content {
+  scrollbar-width: thin;
+}
+
+.formulario_vista_agrupada form.ant-form .ant-col {
+  color: #fff;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td,
+.ant-table tfoot>tr>th,
+.ant-table tfoot>tr>td {
+  padding: 12px;
+}
+
+// .tabla.agrupacion_controles .cabecera_agrupacion {
+//   background-color: #f5f5f5;
+// }
+
+.plantillascontenedor {
+  height: 46vh;
+}
+
+// Vista unificada de indicadores(Indicadores y Indicadores Referencias)
+.contenedor.tabla.indicadores {
+  height: 67vh;
+}

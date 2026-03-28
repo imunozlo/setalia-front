@@ -1,0 +1,7 @@
+<nz-alert *ngIf="errorFormulario" [nzType]="tipo" [nzIcon]="iconTemplate" [nzShowIcon]="true" [nzMessage]="messageTemplate"> </nz-alert>
+<ng-template #iconTemplate>
+  <span style="font-size: 14px" nz-icon [nzType]="icono" nzTheme="outline"></span>
+</ng-template>
+<ng-template #messageTemplate>
+  <div [ngStyle]="{ color: color }" style="font-size: 14px">{{ errorFormularioText | i18n }}</div>
+</ng-template>

@@ -1,0 +1,4 @@
+<i nz-icon nzType="plus-circle" class="icon-tabla" [acl]="permisos"
+*ngIf="!expand" (click)="expandir()"></i>
+<i nz-icon nzType="minus-circle" class="icon-tabla" [acl]="permisos"
+  *ngIf="expand" (click)="expandir(s)"></i>

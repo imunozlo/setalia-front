@@ -1,0 +1,19 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+    <input style="height: 50px;"
+           [appFocus]="autofocus"
+           nz-input
+           type="text"
+           [nzSize]="size"
+           [disabled]="disabled"
+           [formControl]="control"
+           [type]="tipo"
+           [placeholder]="placeholder | i18n"
+           (focusout)="focusOut()"
+           (keydown)="onKeyDown($event)"
+           (change)="cambiar()"
+           [class]="class"
+           [ngStyle]="obligatorio ? {'background-color':'#ccffcc'} : null"
+    />
+  </nz-form-control>
+</nz-form-item>

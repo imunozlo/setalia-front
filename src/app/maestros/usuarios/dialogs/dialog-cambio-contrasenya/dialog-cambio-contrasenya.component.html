@@ -1,0 +1,29 @@
+<div>
+  <nz-row>
+    <nz-col [nzSpan]="24">
+      <app-requisitos-contrasenya #requisitos></app-requisitos-contrasenya>
+    </nz-col>
+  </nz-row>
+
+  <nz-row>
+    <nz-col [nzOffset]="8" [nzSpan]="16">
+      <lib-alertas [errorFormulario]="errorFormulario" [errorFormularioText]="errorFormularioText" [tipo]="'error'"> </lib-alertas>
+    </nz-col>
+  </nz-row>
+
+  <lib-formularios
+    [formulario]="formulario"
+    [(estado)]="formularioValid"
+    [listasValores]="listasValores"
+    [(modelo)]="model"
+    (cambioValores)="datosValidos()"
+  >
+  </lib-formularios>
+</div>
+
+<nz-row>
+  <nz-col class="flex-end-center" [nzOffset]="8" [nzSpan]="16">
+    <lib-boton class="margin-right-sm" (click)="cerrar()" [titulo]="'app.cancelar'"> </lib-boton>
+    <lib-boton-guardar (guardarEvent)="guardar()" [disabled]="!formularioValid || !validacionCorrecta" [titulo]="'app.guardar'"> </lib-boton-guardar>
+  </nz-col>
+</nz-row>

@@ -1,0 +1,5 @@
+<nz-form-item>
+  <label [nzDisabled]="disabled" nz-checkbox (nzCheckedChange)="cambiar($event)" [(ngModel)]="valor">
+    <span class="pointer">{{ etiqueta | i18n }}</span>
+  </label>
+</nz-form-item>

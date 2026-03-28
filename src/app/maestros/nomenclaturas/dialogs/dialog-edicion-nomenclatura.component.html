@@ -1,0 +1,34 @@
+<nz-drawer
+  *ngIf="nomenclatura"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="abierto"
+  [nzTitle]="titulo | i18n"
+  [nzFooter]="footer"
+  (nzOnClose)="cerrar()"
+>
+  <div *nzDrawerContent>
+    <lib-formularios [formulario]="formulario" [(estado)]="formularioValid" [listasValores]="listasValores" [(modelo)]="nomenclatura" />
+  </div>
+
+  <ng-template #footer>
+    <div class="flex-between-center">
+      <lib-boton 
+        [icono]="'close'"
+        [titulo]="'app.cancelar'"
+        [color]="'#1f1f1f'"
+        [colorFondo]="'#FFF'"
+        [border]="''"
+        (enviarEvent)="cerrar()"
+      />
+      
+      <lib-boton-guardar 
+        (guardarEvent)="guardar()"
+        [disabled]="!formularioValid"
+        [titulo]="'app.guardar'"
+      />
+    </div>
+  </ng-template>
+
+</nz-drawer>

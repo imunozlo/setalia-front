@@ -1,0 +1,14 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+    <input
+      nz-input
+      type="text"
+      [nzSize]="size"
+      [formControl]="control"
+      [type]="tipo"
+      inputMask="00:00"
+      (focusout)="cambiar()"
+      (change)="cambiar()"
+    />
+  </nz-form-control>
+</nz-form-item>

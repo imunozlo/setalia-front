@@ -1,0 +1,17 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+    <nz-date-picker
+      [nzSize]="size"
+      [nzPlaceHolder]="placeholder | i18n"
+      [nzFormat]="format"
+      [disabled]="disabled"
+      [nzLocale]="locale"
+      [nzMode]="tipo"
+      [formControl]="control"
+      [nzDisabledDate]="disabledEndDate"
+      [nzShowTime]="mostrarHora"
+      (focusout)="cambiar()"
+      (ngModelChange)="cambiar()"
+    />
+  </nz-form-control>
+</nz-form-item>

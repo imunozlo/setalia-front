@@ -1,0 +1,18 @@
+<button
+  [nzSize]="size"
+  [nzType]="type"
+  [disabled]="disabled"
+  [nzBlock]="nzBlock"
+  [ngStyle]="{ 'width': width ? width : '', 'background-color': colorFondo ? colorFondo : '', 'border-radius': borderRadius ? borderRadius : '', 'border': border ? border: '' }"
+  (click)="enviar()"
+  nz-button
+>
+@if (cambiarOrdenIcono) {
+  <span [ngStyle]="{ 'color': color ? color : '' }">{{ titulo | i18n }}</span>
+  <i *ngIf="icono" nz-icon class="icono" [ngStyle]="{ 'color': color ? color : '' }" [nzType]="icono" nzTheme="outline"></i>
+}@else {
+  <i *ngIf="icono" nz-icon class="icono" [ngStyle]="{ 'color': color ? color : '' }" [nzType]="icono" nzTheme="outline"></i>
+  <span [ngStyle]="{ 'color': color ? color : '' }">{{ titulo | i18n }}</span>
+}
+  
+</button>

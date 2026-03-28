@@ -1,0 +1,8 @@
+<div>
+  <nz-input-group [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input [placeholder]="placeholder | i18n" [(ngModel)]="valorFiltro" (change)="cambiarFiltroGeneral()" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
+</div>

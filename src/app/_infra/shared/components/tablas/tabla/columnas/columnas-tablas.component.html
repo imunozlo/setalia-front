@@ -1,0 +1,56 @@
+<thead>
+  <!--(nzSortOrderChange)="Utils.ordenar($event, this.columnas, columna, this.elementos)"-->
+  <tr>
+    <th
+      *ngFor="let columna of columnas"
+      [style]="ocultarCabecera ? 'display: none' : ''"
+      [style]="columna.tamanyo === '0%' ? 'display: none' : ''"
+      (nzSortOrderChange)="buscarOrdenado($event, columna)"
+      [nzSortOrder]="columna.ordenOrdenacion"
+      [nzSortDirections]="columna.ordreDireccio"
+      [nzShowSort]="columna.mostrarOrdenacion"
+      [nzCustomFilter]="!columna.filtroNoActivo"
+      [nzWidth]="columna.tamanyo"
+    >
+      {{ columna.nombre | i18n }}
+
+      <nz-filter-trigger
+        [(nzVisible)]="columna.filtroActivo"
+        [nzActive]="columna.valorFiltro && columna.valorFiltro.length > 0"
+        [nzDropdownMenu]="filtro"
+      >
+        <span *ngIf="!columna.ocultarBuscador" nz-icon nzType="search"></span>
+      </nz-filter-trigger>
+
+      <nz-dropdown-menu #filtro="nzDropdownMenu">
+        <div class="ant-table-filter-dropdown">
+          <div class="padding-md">
+            <lib-input *ngIf="columna.tipoFiltro === 'text'" [(valor)]="columna.valorFiltro" />
+
+            <lib-input-date-range *ngIf="columna.tipoFiltro === 'date'" [(valor)]="columna.valorFiltro" />
+
+            <lib-input-select
+              *ngIf="tieneElementosLista(columna) && columna.tipoFiltro === 'lista'"
+              [(valor)]="columna.valorFiltro"
+              [elementos]="obtenerElementosLista(columna)"
+            />
+
+            <lib-tabla-filtro-multiselector
+              *ngIf="tieneElementosLista(columna) && columna.tipoFiltro === 'multiple'"
+              [campoDescripcion]="columna.campoDescripcionLista ? columna.campoDescripcionLista : 'descripcion'"
+              [(valores)]="columna.valorFiltro"
+              [elementos]="obtenerElementosLista(columna)"
+            />
+
+            <div class="margin-top-md flex-end-center">
+              <button (click)="borrarFiltro(columna)" nz-button nzSize="small">{{ 'app.borrarFiltro' | i18n }}</button>
+              <button (click)="buscar(columna)" nz-button nzSize="small" nzType="primary" class="search-button">{{
+                'app.buscar' | i18n
+              }}</button>
+            </div>
+          </div>
+        </div>
+      </nz-dropdown-menu>
+    </th>
+  </tr>
+</thead>

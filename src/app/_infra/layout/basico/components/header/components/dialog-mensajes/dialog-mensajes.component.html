@@ -1,0 +1,55 @@
+<nz-drawer
+  *ngIf="elementos"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="abierto"
+  [nzTitle]="'app.perfil' | i18n"
+  (nzOnClose)="cerrar()"
+>
+  <div *nzDrawerContent>
+    <!--app-skelteon *ngIf="loading" [files]="15"></!--app-skelteon-->
+
+    <div class="buscador-paginacion" *ngIf="!loading">
+      <div class="contenedor tabla">
+        <nz-table #basicTable [nzLoading]="loading" [nzShowPagination]="false" [nzHideOnSinglePage]="true" [nzData]="elementos">
+          <lib-columnas-tablas
+            *ngIf="!loading && listasValores"
+            [(columnas)]="columnas"
+            [listasValores]="listasValores"
+            [elementos]="elementos"
+            (buscarEvent)="filtrar()"
+          />
+          <tbody>
+            <ng-container *ngFor="let dato of basicTable.data; index as i">
+              <tr class="pointer">
+                <td>
+                  <lib-tabla-expandible [(expand)]="dato.expand"></lib-tabla-expandible>
+                </td>
+                <td>{{ dato.fecha | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ dato.asunto }}</td>
+                <td><lib-input-switch [(valor)]="dato.finalizado" (cambioValor)="guardar(dato)" /></td>
+              </tr>
+              @if (dato.expand) {
+                <tr style="background-color: #fbfbfb; cursor: pointer">
+                  <td></td>
+                  <td
+                    ><b>{{ 'app.mensaje' | i18n }}</b></td
+                  >
+                  <td colspan="2">{{ dato.mensaje }}</td>
+                </tr>
+              }
+            </ng-container>
+          </tbody>
+        </nz-table>
+      </div>
+
+      <lib-tabla-botonera-secundaria
+        [loading]="loading"
+        [filtros]="filtros"
+        [ocultarNuevo]="true"
+        (filtrar)="filtrarPaginacion($event)"
+      ></lib-tabla-botonera-secundaria>
+    </div>
+  </div>
+</nz-drawer>

@@ -1,0 +1,14 @@
+<p
+  ><span nz-icon [nzType]="'question-circle'" nzTheme="outline" class="margin-right-sm pointer"></span> Para garantizar la seguridad de la
+  cuenta, la contraseña debe cumplir con los siguientes requisitos:</p
+>
+<ul *ngIf="configuracion">
+  <li><strong>Longitud mínima:</strong> La contraseña debe tener un mínimo de {{configuracion.contrasenyaMinimCaracters}} caracteres.</li>
+  <li *ngIf="configuracion.contrasenyaValidarNombre"><strong>Contenido númerico:</strong> La contraseña debe contener al menos un número (del 0 al 9).</li>
+  <li *ngIf="configuracion.contrasenyaValidarMayuscula"><strong>Letra mayúscula:</strong> La contraseña debe contener al menos una letra mayúscula (A-Z).</li>
+  <li *ngIf="configuracion.contrasenyaValidarSimbol"><strong>Símbolos permitidos:</strong>
+    {{ 'La contraseña debe contener al menos un símbolo especial, como: !, @, #, $, %, ^, &, *, (, ), -, _, =, +, etc.' }}</li
+  >
+  <li *ngIf="!configuracion.hiHaRotacio()"><strong>No repetir la uúltima contraseña:</strong> La nueva contraseña no puede ser la misma que la última contraseña utilitzada.</li>
+  <li *ngIf="configuracion.hiHaRotacio()"><strong>Rotació de Contrasenyes:</strong> La nueva contraseña no puede conincidircon ninguna de las {{configuracion.contrasenyaNumeroRotacio}} contraseñas utilizadas anteriormente.</li>
+</ul>

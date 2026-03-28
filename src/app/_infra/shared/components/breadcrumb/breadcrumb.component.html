@@ -1,0 +1,9 @@
+<nz-breadcrumb *ngIf="breadcrumbs$ | async as breadcrumbs" style="color: white">
+  <nz-breadcrumb-item>
+    <i nz-icon nzType="home" class="icono" style="color: white" (click)="navegarHome()"></i>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item *ngFor="let breadcrumb of breadcrumbs$ | async" style="color: white">
+    <span *ngIf="breadcrumb.url" style="color: white" class="pointer" (click)="navegar(breadcrumb.url)">{{ breadcrumb.descripcion }}</span>
+    <span *ngIf="!breadcrumb.url" style="color: white">{{ breadcrumb.descripcion }}</span>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>

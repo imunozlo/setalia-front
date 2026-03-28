@@ -1,0 +1,17 @@
+<nz-card class="margin-xlg altura modul padding-xlg" [ngStyle]="{ 'border-top-color': '#000' }">
+  <nz-row class="margin-bottom-xlg">
+    <nz-col [nzSpan]="24">
+      <lib-titulo [titulo]="'app.perfil' | i18n" />
+    </nz-col>
+  </nz-row>
+
+  <lib-formularios [formulario]="formulario" [(estado)]="formularioValid" [listasValores]="listasValores" [modelo]="usuari"></lib-formularios>
+
+  <nz-row>
+    <nz-col [nzSpan]="24" class="flex-end-center">
+      <lib-boton class="margin-right-sm" (click)="volver()" [titulo]="'app.volver'"> </lib-boton>
+      <lib-boton class="margin-right-sm" (click)="cambiarContrasenya()" [titulo]="'app.cambiarContrasenya'"> </lib-boton>
+      <lib-boton-guardar (guardarEvent)="guardar()" [disabled]="!formularioValid" [titulo]="'app.guardar'"> </lib-boton-guardar>
+    </nz-col>
+  </nz-row>
+</nz-card>

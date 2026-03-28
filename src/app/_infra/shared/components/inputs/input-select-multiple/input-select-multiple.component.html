@@ -1,0 +1,19 @@
+<nz-form-item>
+  <nz-form-control [nzErrorTip]="errorLabel | i18n">
+    <nz-select
+      [nzShowSearch]="!ocultarSearch"
+      [nzAllowClear]="!ocultarClear"
+      [nzSize]="size"
+      nzMode="multiple"
+      [formControl]="control"
+      [title]="descripcion"
+      [nzPlaceHolder]="placeholder | i18n"
+      (focusout)="cambiar()"
+      (ngModelChange)="cambiar()"
+    >
+      <nz-option *ngFor="let opcion of elementosFiltrados" [nzCustomContent]="true" [nzLabel]="opcion[campo] | i18n" [nzValue]="opcion.id">
+        <div [title]="opcion[campo]">{{ opcion[campo] | i18n }}</div>
+      </nz-option>
+    </nz-select>
+  </nz-form-control>
+</nz-form-item>

@@ -1,0 +1,101 @@
+<nz-row class="margin-bottom-md">
+  <nz-col [nzSpan]="24" class="flex-start-center">
+    <h3 class="no-margin"
+      ><strong>{{ titulo | i18n }}</strong></h3
+    >
+  </nz-col>
+</nz-row>
+
+<div #containerRef class="container-grafic">
+  <ngx-charts-bar-vertical
+    *ngIf="tipoGrafico === 'barras'"
+    [view]="[containerRef.offsetWidth, containerRef.offsetHeight]"
+    [scheme]="colors"
+    [results]="grafico"
+    [gradient]="false"
+    [legend]="false"
+    [showDataLabel]="mostarLabel"
+    [showXAxisLabel]="false"
+    [showYAxisLabel]="false"
+    [xAxis]="opciones.verXAxis"
+    [yAxis]="opciones.verYAxis"
+    style="fill: #fff"
+  >
+  </ngx-charts-bar-vertical>
+
+  <ngx-charts-bar-vertical-2d
+    *ngIf="tipoGrafico === 'barrasAgrupado'"
+    [view]="tamanyo"
+    [scheme]="colors"
+    [results]="grafico"
+    [gradient]="false"
+    [legend]="false"
+    [showDataLabel]="true"
+    [showXAxisLabel]="false"
+    [showYAxisLabel]="false"
+    [xAxis]="opciones.verXAxis"
+    [yAxis]="opciones.verYAxis"
+  >
+  </ngx-charts-bar-vertical-2d>
+
+  <ngx-charts-bar-horizontal
+    *ngIf="tipoGrafico === 'barrasHorizontal'"
+    [view]="tamanyo"
+    [scheme]="colors"
+    [results]="grafico"
+    [gradient]="false"
+    [legend]="false"
+    [showDataLabel]="true"
+    [showXAxisLabel]="false"
+    [showYAxisLabel]="false"
+    [xAxis]="opciones.verXAxis"
+    [yAxis]="opciones.verYAxis"
+  >
+  </ngx-charts-bar-horizontal>
+
+  <ngx-charts-pie-grid *ngIf="tipoGrafico === 'grid'" [view]="tamanyo" [scheme]="colors" [results]="grafico"> </ngx-charts-pie-grid>
+
+  <ngx-charts-pie-chart
+    *ngIf="tipoGrafico === 'tarta'"
+    [view]="[containerRef.offsetWidth, containerRef.offsetHeight]"
+    [scheme]="colors"
+    [results]="grafico"
+    [legend]="false"
+    [labels]="true"
+    [doughnut]="false"
+    style="fill: #fff"
+  >
+  </ngx-charts-pie-chart>
+
+  <ngx-charts-number-card
+    *ngIf="tipoGrafico === 'tarjeta'"
+    [view]="tamanyo"
+    [scheme]="colors"
+    [results]="grafico"
+    [cardColor]="'rgba(224,224,224,0.44)'"
+  >
+  </ngx-charts-number-card>
+
+  <ngx-charts-line-chart
+    *ngIf="tipoGrafico === 'linea'"
+    [view]="[containerRef.offsetWidth, containerRef.offsetHeight]"
+    [scheme]="colors"
+    [results]="grafico"
+    [legend]="false"
+    [showXAxisLabel]="false"
+    [showYAxisLabel]="false"
+    [xAxis]="opciones.verXAxis"
+    [yAxis]="opciones.verYAxis"
+    style="fill: #fff"
+  >
+  </ngx-charts-line-chart>
+
+  <nz-dropdown-menu #menuLeyenda="nzDropdownMenu">
+    <ul nz-menu>
+      <li *ngFor="let ley of leyenda" nz-menu-item>
+        <div [ngStyle]="{ 'background-color': ley.color, color: ley.color }" style="width: 20px; height: 20px">&nbsp;</div>
+        <span class="margin-left-sm">{{ ley.descripcion }}</span>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</div>

@@ -1,0 +1,34 @@
+<nz-drawer
+  *ngIf="usuario"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="abierto"
+  [nzTitle]="titulo | i18n"
+  [nzExtra]="extraTpl"
+  [nzFooter]="usuario.id ? footerTpl : null"
+  (nzOnClose)="cerrar()"
+>
+  <div *nzDrawerContent>
+    <nz-row>
+      <nz-col [nzOffset]="8" [nzSpan]="16">
+        <lib-input-upload-image *ngIf="usuario" [id]="usuario.id" [tipo]="'usuarios'" [editable]="tienePermisos()" (refrescar)="cambiAvatar()"></lib-input-upload-image>
+      </nz-col>
+    </nz-row>
+    <lib-formularios [formulario]="formulario" [(estado)]="formularioValid" [listasValores]="listasValores" [(modelo)]="usuario" />
+  </div>
+
+  <ng-template #extraTpl>
+    <div class="flex-end-center">
+      <lib-boton-guardar *ngIf="tienePermisos()" (guardarEvent)="guardar()" [disabled]="!formularioValid" [titulo]="'app.guardar'" />
+    </div>
+  </ng-template>
+
+  <ng-template #footerTpl>
+    <div *ngIf="usuario.id">
+      <div class="margin-bottom-md">
+        <lib-boton *ngIf="tienePermisos()" (click)="eliminar()" [titulo]="'app.eliminarUsuario'" [nzBlock]="true" />
+      </div>
+    </div>
+  </ng-template>
+</nz-drawer>

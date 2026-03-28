@@ -1,0 +1,44 @@
+<nz-row class="padding-bottom-md padding-top-md text-white" style="height: 100%;">
+  <nz-col [nzSpan]="12" class="flex-start-center">
+    <lib-titulo [titulo]="titulo" />
+  </nz-col>
+  <nz-col [nzSpan]="12" class="flex-end-center">
+    <div class="contenedor-botones">
+      <!-- Vistas -->
+      @if(vistas && vistas.length > 0){
+        <a nz-dropdown [nzDropdownMenu]="menu" class="text-white">
+          {{vistaSeleccionada | i18n}}
+          <i nz-icon nzType="down"></i>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <li nz-menu-item *ngFor="let vista of vistas" (click)="cambiarVista(vista)">{{vista.nombre | i18n}}</li>
+          </ul>
+        </nz-dropdown-menu>
+      }
+      <!-- Buscador general-->
+      <lib-input class="margin-right-md" *ngIf="mostrarBuscador" [(valor)]="valorBuscador" [size]="'default'" [placeholder]="'app.buscar'" (valorChange)="filtrarBuscador($event)" />
+      <!-- Boton filtros -->
+      <nz-badge [nzDot]="mostrarFiltroMarcado" *ngIf="mostrarFiltro">
+        <i (click)="filtrosEvent.emit()" [title]="'Filtros'" nz-icon class="icono boton-botonera-principal" nzType="filter" nzTheme="outline"></i>
+      </nz-badge>
+      <!-- Boton exportar -->
+      <i
+      *ngIf="mostrarExportar"
+      (click)="exportarEvent.emit()"
+      [title]="'Exportar'"
+      nz-icon
+      class="icono boton-botonera-principal"
+      [nzType]="'file-excel'"
+      nzTheme="outline"
+      ></i>
+      <!-- Boton refrescar filtros -->
+      <i (click)="refrescarFiltrosEvent.emit()" [title]="'Refrescar'" nz-icon class="icono boton-botonera-principal"  nzType="reload" nzTheme="outline"></i>
+      @if(maximizado){
+        <i (click)="maximizar()" [title]="'Minimizar'" nz-icon class="icono boton-botonera-principal" nzType="shrink" nzTheme="outline"></i>
+      }@else {
+        <i (click)="maximizar()" [title]="'Maximizar'" nz-icon class="icono boton-botonera-principal" nzType="expand-alt" nzTheme="outline"></i>
+      }
+    </div>
+  </nz-col>
+</nz-row>

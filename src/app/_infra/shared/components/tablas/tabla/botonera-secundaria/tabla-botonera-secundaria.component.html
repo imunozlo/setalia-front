@@ -1,0 +1,33 @@
+
+<nz-row class="padding-top-md">
+  <nz-col [nzSpan]="12" class="flex-start-center">
+    <nz-pagination
+      *ngIf="!loading && masUnaPagina() && !ocultarPaginacion"
+      [nzTotal]="filtros.total"
+      [nzPageSize]="filtros.pageSize"
+      [(nzPageIndex)]="filtros.pageIndex"
+      (nzPageIndexChange)="filtrar.emit(filtros)"
+    >
+    </nz-pagination>
+  </nz-col>
+  <nz-col *ngIf="!soloMostrarPaginacion" [nzSpan]="12" class="flex-end-center">
+    <lib-boton
+      [acl]="permisos"
+      *ngIf="!ocultarNuevo"
+      [icono]="iconoNuevo"
+      [type]="'primary'"
+      class="margin-left-sm"
+      (click)="nuevoEvent.emit()"
+      [titulo]="tituloNuevo | i18n"
+    />
+    <div *ngIf="botonesExtra && botonesExtra.length > 0" style="display: flex;">
+      <lib-boton
+        *ngFor="let boton of botonesExtra"
+        [acl]="boton.permisos"
+        class="margin-left-sm"
+        (click)="botonExtraEvent.emit(boton.valor)"
+        [titulo]="boton.nombre | i18n"
+      />
+    </div>
+  </nz-col>
+</nz-row>
