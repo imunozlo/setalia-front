@@ -21,6 +21,7 @@ export class ConsultasStoreService {
         const consulta = new ConsultaModel().deserialize(datos);
         this.datos['NOMENCLATURAS_TIPOS'] = consulta.nomneclaturasTipos;
         this.datos['ROLES'] = consulta.roles;
+        this.datos['SETAS'] = consulta.setas;
         this.anyadirListasNomenclaturas(consulta.nomenclaturas);
         this.anyadirOtrasListas();
       })

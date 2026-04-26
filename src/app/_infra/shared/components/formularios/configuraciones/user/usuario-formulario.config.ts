@@ -26,6 +26,36 @@ export const UsuarioFormularioConfig: FormularioInterface = {
       obligatorio: true,
       blank: false,
       etiqueta: {
+        nombre: 'app.nombre',
+        tamanyo: 8
+      },
+      input: {
+        tipo: 'text',
+        nombre: 'nombre',
+        valor: 'nombre',
+        disabled: false,
+        tamanyo: 16
+      }
+    },
+    {
+      obligatorio: true,
+      blank: false,
+      etiqueta: {
+        nombre: 'app.apellidos',
+        tamanyo: 8
+      },
+      input: {
+        tipo: 'text',
+        nombre: 'apellidos',
+        valor: 'apellidos',
+        disabled: false,
+        tamanyo: 16
+      }
+    },
+    {
+      obligatorio: true,
+      blank: false,
+      etiqueta: {
         nombre: 'app.email',
         tamanyo: 8
       },

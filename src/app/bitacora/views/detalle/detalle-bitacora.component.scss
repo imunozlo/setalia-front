@@ -1,0 +1,35 @@
+.detalle-contenedor {
+  padding: 20px;
+  color: #fff;
+  background-color: #445975bf;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: 2em;
+
+  height: calc(100dvh - 110px);
+  min-height: calc(100dvh - 110px);
+  box-sizing: border-box;
+  overflow: hidden;
+
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.info_basica,
+.info_relacionada,
+.botonera_principal {
+  min-height: 0;
+}
+
+.info_relacionada {
+  display: flex;
+  min-height: 0;
+}
+
+.info_relacionada app-bitacora-media {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+}

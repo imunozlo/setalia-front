@@ -1,0 +1,95 @@
+<nz-card class="card-fotos">
+  <div #contenedorFotosFullscreen class="contenedor-fotos-completo">
+    <input
+      #inputFotos
+      type="file"
+      accept="image/png,image/jpeg,image/webp"
+      multiple
+      hidden
+      (change)="onFotosSeleccionadas($event)"
+    />
+
+    <div class="toolbar-fotos">
+      <div class="toolbar-fotos__izq">
+        <span>{{ previews.length }}/{{ maxFotos }} fotos</span>
+      </div>
+
+      <div class="toolbar-fotos__der">
+        <lib-boton
+          (click)="abrirSelector()"
+          [disabled]="!puedeSubir"
+          [titulo]="'Añadir fotos'">
+        </lib-boton>
+
+        <lib-boton
+          *ngIf="previews.length > 0"
+          (click)="eliminarActual()"
+          [disabled]="eliminando"
+          [titulo]="'Eliminar actual'">
+        </lib-boton>
+
+        <lib-boton
+          (click)="toggleFullscreenFotos()"
+          [titulo]="fotosFullscreen ? 'Salir de pantalla completa' : 'Maximizar fotos'">
+        </lib-boton>
+      </div>
+    </div>
+
+    <div *ngIf="!bitacoraId" class="sin-fotos">
+      Guarda primero la bitácora para poder subir fotos.
+    </div>
+
+    <div *ngIf="bitacoraId && cargandoPreviews" class="sin-fotos">
+      Cargando fotos...
+    </div>
+
+    <div *ngIf="bitacoraId && !cargandoPreviews && previews.length; else vacioConId" class="visor-fotos">
+      <div class="acciones-carrusel">
+        <lib-boton
+          [disabled]="previews.length < 2"
+          (click)="anterior()"
+          [titulo]="'Anterior'">
+        </lib-boton>
+
+        <span>Foto {{ indiceActual + 1 }} de {{ previews.length }}</span>
+
+        <lib-boton
+          [disabled]="previews.length < 2"
+          (click)="siguiente()"
+          [titulo]="'Siguiente'">
+        </lib-boton>
+      </div>
+
+      <div class="visor-simple" *ngIf="fotoActual as foto">
+        <div class="slide-foto">
+          <img
+            class="slide-foto__imagen"
+            [src]="foto.src"
+            [alt]="foto.nombreArchivo || ('Foto ' + (indiceActual + 1))"
+          />
+        </div>
+
+        <div class="miniaturas" *ngIf="previews.length > 1">
+          <button
+            type="button"
+            class="miniatura"
+            *ngFor="let item of previews; let i = index"
+            [class.miniatura--activa]="i === indiceActual"
+            (click)="irA(i)"
+          >
+            <img
+              [src]="item.src"
+              [alt]="item.nombreArchivo || ('Miniatura ' + (i + 1))"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #vacioConId>
+      <div *ngIf="bitacoraId && !cargandoPreviews" class="sin-fotos">
+        No hay fotos todavía
+      </div>
+    </ng-template>
+  </div>
+</nz-card>

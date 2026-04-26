@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormularioCampoInterface } from '../../models/formulario-campo.interface';
 import { FormularioRelacionInterface } from '../../models/formulario-relacion.interface';
@@ -8,7 +8,7 @@ import { FormularioRelacionInterface } from '../../models/formulario-relacion.in
   selector: 'lib-campos-formulario',
   templateUrl: './campos-formulario.component.html'
 })
-export class CamposFormularioComponent {
+export class CamposFormularioComponent implements OnInit {
   @Input() campos: FormularioCampoInterface[];
   @Input() modelo: any;
   @Input() listasValores: any = {};
@@ -20,9 +20,20 @@ export class CamposFormularioComponent {
   @Output() readonly campoSwitchChange = new EventEmitter<any>();
   @Output() readonly validarFormularioChange = new EventEmitter<any>();
 
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
-volverRelacion(valor: number, relacionado: boolean, nombre: string) {
+  ngOnInit() {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['modelo']) {
+      console.log('modelo cambiado', this.modelo);
+      this.cdr.detectChanges();
+    }
+  }
+
+  volverRelacion(valor: number, relacionado: boolean, nombre: string) {
     if (relacionado) {
       const datos: FormularioRelacionInterface = { valor: valor, nombre: nombre };
       this.campoRelacionadoChange.emit(datos);
@@ -107,7 +118,7 @@ volverRelacion(valor: number, relacionado: boolean, nombre: string) {
   esListaTree(campo: FormularioCampoInterface) {
     if (!campo.blank && campo.input.tipo === 'tree') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -155,7 +166,7 @@ volverRelacion(valor: number, relacionado: boolean, nombre: string) {
   esProgressBar(campo: FormularioCampoInterface) {
     if (!campo.blank && campo.input.tipo === 'progress') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -163,7 +174,7 @@ volverRelacion(valor: number, relacionado: boolean, nombre: string) {
   esEtiquetas(campo: FormularioCampoInterface) {
     if (!campo.blank && campo.input.tipo === 'etiquetas') {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
@@ -171,7 +182,7 @@ volverRelacion(valor: number, relacionado: boolean, nombre: string) {
   esEtiquetasEdicion(campo: FormularioCampoInterface) {
     if (!campo.blank && campo.input.tipo === 'etiquetas-edicion') {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
@@ -179,7 +190,7 @@ volverRelacion(valor: number, relacionado: boolean, nombre: string) {
   esTextoSinInput(campo: FormularioCampoInterface) {
     if (!campo.blank && campo.input.tipo === 'textoSinInput') {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
@@ -202,5 +213,4 @@ volverRelacion(valor: number, relacionado: boolean, nombre: string) {
       return { minRows: rows['rowsXs'], maxRows: rows['rowsXs'] };
     }
   }
-
 }

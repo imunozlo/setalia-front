@@ -64,6 +64,7 @@ export abstract class BuscadorBaseAbstract<Model, Filtros, StoreService> {
   }
 
   filtrarPaginacion(filtros: Filtros) {
+    debugger;
     this.loading = true;
     this.filtros = filtros;
     this.filtrar();

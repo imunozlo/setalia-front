@@ -5,11 +5,13 @@ import { NomenclaturaFiltroModel } from '../../models/nomenclatura-filtro.model'
 import { NomenclaturaModel } from '../../models/nomenclatura.model';
 import { NomenclaturasService } from '../../services/nomenclaturas.service';
 import { NomenclaturesStoreService } from '../../services/nomenclaturas.store.service';
-import { NomenclaturasConfig } from 'src/app/_infra/shared/components/tablas/tabla/configuracions/maestros/nomenclaturas.config';
 import { ConsultasStoreService } from 'src/app/maestros/consultas/service/consultas.store.service';
 import { BuscadorBaseAbstract } from 'src/app/_infra/shared/abstract/buscador-base.abstract';
 import { I18NService } from 'src/app/_infra/core';
 import { ExcelService } from 'src/app/_infra/shared/services/excelService';
+import {
+  NomenclaturasConfig
+} from "../../../../_infra/shared/components/tablas/tabla/configuracions/maestros/nomenclaturas.config";
 
 @Component({
   selector: 'app-buscador-nomenclaturas',

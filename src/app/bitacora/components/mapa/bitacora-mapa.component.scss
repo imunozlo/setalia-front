@@ -1,0 +1,109 @@
+.card-mapa ::ng-deep .ant-card-body {
+  overflow: visible;
+}
+
+.mapa-toolbar-superior {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.campo-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 280px;
+}
+
+.campo-inline lib-etiqueta {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.campo-inline lib-input,
+.campo-inline lib-input-select {
+  flex: 1 1 auto;
+  min-width: 180px;
+}
+
+.campo-mapa-select {
+  min-width: 320px;
+  flex: 1 1 320px;
+}
+
+.campo-coordenada {
+  min-width: 260px;
+  flex: 1 1 260px;
+}
+
+.acciones-mapa {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+.card-mapa {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+.card-mapa ::ng-deep .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.contenedor-mapa-completo {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.mapa-toolbar-superior {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  flex: 0 0 auto;
+}
+
+.mapa-contenedor {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 260px;
+  height: auto;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.mapa-contenedor {
+  width: 100%;
+  height: clamp(260px, 35vh, 420px);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.contenedor-mapa-completo:fullscreen {
+  background: #fff;
+  padding: 16px;
+}
+
+.contenedor-mapa-completo:fullscreen .mapa-contenedor {
+  height: calc(100vh - 120px);
+  border-radius: 0;
+}

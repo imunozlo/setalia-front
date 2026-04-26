@@ -4,6 +4,7 @@ import { BuscadorNomenclaturasComponent } from '../nomenclaturas/views/buscador/
 import { BuscadorUsuariosComponent } from '../usuarios/views/buscador/buscador-usuarios.component';
 import { BuscadorPermisosComponent } from '../usuarios/views/permisos/buscador-permisos.component';
 import { securityGuard } from 'src/app/_infra/core';
+import { BuscadorSetasComponent } from '../setas/views/buscador/buscador-setas.component';
 const routes: Routes = [
   {
     path: 'usuarios',
@@ -32,7 +33,17 @@ const routes: Routes = [
     data: {
       title: 'Listas de valores',
       breadcrumb: [{ descripcion: 'Configuracion' }, { descripcion: 'Listas de valores' }],
-      guard: { role: ['MODULO_CONFIGURACION_LISTAS_CONSULTA'] }
+      guard: { role: ['MODULO_CONFIGURACION_NOMENCLATURAS_CONSULTA'] }
+    }
+  },
+  {
+    path: 'setas',
+    component: BuscadorSetasComponent,
+    canActivate: [securityGuard],
+    data: {
+      title: 'Setas',
+      breadcrumb: [{ descripcion: 'Configuracion' }, { descripcion: 'Setas' }],
+      guard: { role: ['MODULO_CONFIGURACION_SETAS_CONSULTA'] }
     }
   }
   /*{

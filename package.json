@@ -42,6 +42,7 @@
     "file-saver": "^2.0.5",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
+    "maplibre-gl": "^5.23.0",
     "moment": "^2.30.1",
     "ng-zorro-antd": "^17.4.0",
     "ng-zorro-antd-mobile": "^10.0.0",

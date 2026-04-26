@@ -39,6 +39,7 @@
             "styles": [
               "src/styles.less",
               "node_modules/ng-zorro-antd-mobile/src/ng-zorro-antd-mobile.min.css",
+              "node_modules/maplibre-gl/dist/maplibre-gl.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [],

@@ -44,6 +44,7 @@ export class InputSelectComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+
     this.obtenerDescripcion();
     this.filtrarElmentosNoActivos();
     if (this.control) {

@@ -1,0 +1,46 @@
+<app-skelteon *ngIf="loading" [files]="10" />
+
+<div class="detalle-contenedor" *ngIf="!loading && bitacora">
+  <div class="info_basica">
+    <nz-card style="height: 100%;">
+      <lib-formularios
+      [formulario]="formulario"
+      [(estado)]="formularioValid"
+      [listasValores]="listasValores"
+      (campoRelacionadoChange)="filtrarMunicipios($event)"
+      [(modelo)]="bitacora"
+      />
+    </nz-card>
+  </div>
+  <div class="info_relacionada" >
+<!--    <app-bitacora-mapa
+      [(latitud)]="bitacora.latitud"
+      [(longitud)]="bitacora.longitud"
+      (coordenadasChange)="onCoordenadasMapaChange($event)">
+    </app-bitacora-mapa>-->
+    <app-bitacora-media
+      [bitacoraId]="bitacora.id"
+      [esNuevo]="esNuevo"
+      [(latitud)]="bitacora.latitud"
+      [(longitud)]="bitacora.longitud"
+      [(fotos)]="bitacora.fotos"
+      (coordenadasChange)="onCoordenadasMapaChange($event)"
+      (refrescarFotos)="cargarDatos()">
+    </app-bitacora-media>
+  </div>
+  <div class="botonera_principal">
+    <nz-row>
+      <nz-col [nzSpan]="24" class="flex-end-center padding-right-md">
+        <lib-boton *ngIf="!esNuevo"
+        class="margin-left-sm"
+        (click)="null"
+        [titulo]="'bitacora.crear.publicacion' | i18n"
+        />
+        <lib-detalle-botonera-principal
+        [disabled]="!datosValido()"
+        (guardarEvent)="guardar()"
+        />
+      </nz-col>
+    </nz-row>
+  </div>
+</div>

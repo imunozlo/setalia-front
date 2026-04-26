@@ -1,0 +1,26 @@
+<nz-tabset
+  class="media-tabs"
+  [(nzSelectedIndex)]="seleccionado"
+  (nzSelectedIndexChange)="onTabChange($event)"
+>
+  <nz-tab [nzTitle]="'Mapa'">
+    <app-bitacora-mapa
+      *ngIf="seleccionado === 0"
+      [latitud]="latitud"
+      (latitudChange)="onLatitudChange($event)"
+      [longitud]="longitud"
+      (longitudChange)="onLongitudChange($event)"
+      (coordenadasChange)="onCoordenadasChange($event)">
+    </app-bitacora-mapa>
+  </nz-tab>
+
+  <nz-tab [nzTitle]="'Fotos'" *ngIf="!esNuevo">
+    <app-bitacora-fotos
+      *ngIf="seleccionado === 1"
+      [bitacoraId]="bitacoraId"
+      [fotos]="fotos"
+      (fotosChange)="onFotosChange($event)"
+      (refrescarFotos)="onRefrescarFotos()">
+    </app-bitacora-fotos>
+  </nz-tab>
+</nz-tabset>

@@ -1,0 +1,69 @@
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+.media-tabs {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+.media-tabs ::ng-deep .ant-tabs {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+.media-tabs ::ng-deep .ant-tabs-nav {
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+}
+
+.media-tabs ::ng-deep .ant-tabs-content-holder {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+}
+
+.media-tabs ::ng-deep .ant-tabs-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+.media-tabs ::ng-deep .ant-tabs-tabpane {
+  height: 100%;
+  min-height: 0;
+}
+
+.media-tabs ::ng-deep .ant-tabs-tabpane-active {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.media-tabs ::ng-deep .ant-tabs-tab {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.media-tabs ::ng-deep .ant-tabs-tab:hover {
+  color: #ffffff;
+}
+
+.media-tabs ::ng-deep .ant-tabs-tab-btn {
+  color: inherit;
+}
+
+.media-tabs ::ng-deep .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #7ee7ef;
+}
+
+.media-tabs ::ng-deep .ant-tabs-ink-bar {
+  background: #7ee7ef;
+}
