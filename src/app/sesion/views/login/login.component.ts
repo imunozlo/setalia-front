@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.sesionService.login(datos).subscribe({
       complete: () => {
-        //this.loaderService.hide();
+        this.loaderService.hide();
         this.loading = false;
       },
       error: () => {
@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit {
       },
       next: response => {
         const usuari = new UserModel().deserialize(response);
-        //this.loaderService.hide();
+        this.loaderService.hide();
         this.iniciar(usuari);
       }
     });

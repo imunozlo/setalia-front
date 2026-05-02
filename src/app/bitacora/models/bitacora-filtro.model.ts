@@ -8,6 +8,7 @@ export class BitacoraFiltroModel extends BaseModel {
   municipio: string[];
   fecha: Date[];
   setaId: number[];
+  usuarioId: number;
 
   initialize() {
     if (!this.pageIndex) this.pageIndex = 1;
@@ -17,6 +18,7 @@ export class BitacoraFiltroModel extends BaseModel {
 
   iniciarFiltro(columnas: ColumnaInterface[]) {
     this.titulo = UtilsFiltros.obtenerValorFiltro(columnas, 'titulo');
+    this.titulo = UtilsFiltros.obtenerValorFiltro(columnas, 'usuarioId');
     this.provincia = UtilsFiltros.obtenerValorFiltro(columnas, 'provincia');
     this.municipio = UtilsFiltros.obtenerValorFiltro(columnas, 'municipio');
     this.fecha = UtilsFiltros.obtenerValorFiltro(columnas, 'fecha');
@@ -29,6 +31,7 @@ export class BitacoraFiltroModel extends BaseModel {
   deserializeFiltros(input: any, columnas: ColumnaInterface[]) {
     Object.assign(this, input);
     UtilsFiltros.asignarValorFiltro(columnas, this.titulo, 'titulo');
+    UtilsFiltros.asignarValorFiltro(columnas, this.titulo, 'usuarioId');
     UtilsFiltros.asignarValorFiltro(columnas, this.provincia, 'provincia');
     UtilsFiltros.asignarValorFiltro(columnas, this.municipio, 'municipio');
     UtilsFiltros.asignarValorFiltro(columnas, this.fecha, 'fecha');

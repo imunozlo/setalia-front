@@ -3,18 +3,23 @@ import { BitacoraFotoModel } from './bitacora-foto.model';
 
 export class BitacoraModel extends BaseModel {
   titulo: string;
+  tituloPublico: string;
   provincia: string;
   provinciaDescripcion: string;
   municipio: string | null;
   municipioDescripcion: string;
   observaciones: string;
+  observacionesPublico: string;
   setaNombreCientifico: string;
   setaNombreComun: string;
+  publico: boolean;
   fecha: Date;
   setaId: number;
   latitud: number | null;
   longitud: number | null;
   fotos: BitacoraFotoModel[] = [];
+  usuarioId: number;
+  usuarioDescripcion: string;
 
   initialize() {
     this.fotos = [];

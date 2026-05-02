@@ -73,7 +73,7 @@ export class TablaFiltroMultiselectorComponent implements OnInit {
   filtrar() {
     this.elementosFiltrados = [];
     this.elementos.filter(ele => {
-      if (Utils.normalizarCadena(this.i18n.traducir(ele.descripcion)).includes(Utils.normalizarCadena(this.filtro))) {
+      if (Utils.normalizarCadena(this.i18n.traducir(ele[this.campoDescripcion])).includes(Utils.normalizarCadena(this.filtro))) {
         this.elementosFiltrados.push(ele);
       }
     });

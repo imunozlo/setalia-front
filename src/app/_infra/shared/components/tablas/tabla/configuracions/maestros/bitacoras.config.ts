@@ -35,7 +35,8 @@ export const BitacorasConfig: ColumnaInterface[] = [
     ordenOrdenacion: null,
     filtroActivo: false,
     valorFiltro: '',
-    tipoFiltro: 'text',
+    tipoFiltro: 'multiple',
+    campoLista: 'provincias',
     ordenDireccion: ['ascend', 'descend', null]
   },
   {
@@ -47,7 +48,8 @@ export const BitacorasConfig: ColumnaInterface[] = [
     ordenOrdenacion: null,
     filtroActivo: false,
     valorFiltro: '',
-    tipoFiltro: 'text',
+    tipoFiltro: 'multiple',
+    campoLista: 'municipios',
     ordenDireccion: ['ascend', 'descend', null]
   },
   {

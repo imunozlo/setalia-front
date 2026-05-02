@@ -44,3 +44,5 @@
     </nz-row>
   </div>
 </div>
+
+<app-drawer-publicar #drawerPublicar *ngIf="!loading" (refrescar)="guardar()" />

@@ -17,6 +17,7 @@ export abstract class BuscadorBaseAbstract<Model, Filtros, StoreService> {
   ) {}
 
   cargarDatos() {
+    debugger;
     this.loading = true;
     this.storeService
       //@ts-ignore

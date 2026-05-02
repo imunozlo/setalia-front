@@ -4,9 +4,11 @@ export const BitacoraForm = {
   titulo: ['', Validators.required],
   fecha: ['', Validators.required],
   provincia: ['', Validators.required],
-  municipio: ['',],
-  setaId: ['', ],
-  latitud: ['', ],
-  longitud: ['', ],
+  municipio: [''],
+  setaId: [''],
+  latitud: [''],
+  longitud: [''],
+  tituloPublico: [''],
+  observacionesPublico: [''],
   observaciones: ['']
 };

@@ -11,6 +11,7 @@ import { BitacoraMapaComponent } from './components/mapa/bitacora-mapa.component
 import {BitacoraMediaComponent} from "./components/media/bitacora-media.component";
 import {BitacoraFotosComponent} from "./components/fotos/bitacora-fotos.component";
 import {NzCarouselComponent} from "ng-zorro-antd/carousel";
+import { DrawerPublicarComponent } from './dialogs/publicar/drawer-publicar.component';
 
 
 
@@ -20,6 +21,7 @@ const COMPONENTS = [
   BitacoraMapaComponent,
   BitacoraMediaComponent,
   BitacoraFotosComponent,
+  DrawerPublicarComponent,
   DetalleBitacoraComponent
 ];
 

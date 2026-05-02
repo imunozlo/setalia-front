@@ -14,7 +14,7 @@
     <div class="contenedor tabla">
       <nz-table #basicTable [nzLoading]="loading" [nzPageSize]="10000" [nzHideOnSinglePage]="true" [nzData]="elementos">
         <lib-columnas-tablas
-          *ngIf="!loading"
+          *ngIf="!loading && listasValores"
           [ordenLocal]="true"
           [(columnas)]="columnas"
           [listasValores]="listasValores"

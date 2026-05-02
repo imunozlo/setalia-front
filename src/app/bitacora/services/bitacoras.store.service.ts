@@ -33,6 +33,6 @@ export class BitacorasStoreService extends StoreServiceBaseAbstract<BitacoraMode
   }
 
   override deserializarFiltros(columnas: ColumnaInterface[]): any {
-    return new SetaFiltroModel().deserializeFiltros(this.localStoreService.getItem(this.cacheFiltros), columnas);
+    return new BitacoraFiltroModel().deserializeFiltros(this.localStoreService.getItem(this.cacheFiltros), columnas);
   }
 }

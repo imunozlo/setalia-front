@@ -1,4 +1,31 @@
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+.card-mapa {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
 .card-mapa ::ng-deep .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+.contenedor-mapa-completo {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
   overflow: visible;
 }
 
@@ -8,6 +35,9 @@
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 16px;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 10;
 }
 
 .campo-inline {
@@ -45,65 +75,38 @@
   flex-wrap: wrap;
   margin-left: auto;
 }
-:host {
-  display: flex;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: 100%;
-}
-
-.card-mapa {
-  display: flex;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: 100%;
-}
-
-.card-mapa ::ng-deep .ant-card-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
-}
-
-.contenedor-mapa-completo {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-.mapa-toolbar-superior {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-  flex: 0 0 auto;
-}
 
 .mapa-contenedor {
   width: 100%;
   flex: 1 1 auto;
   min-height: 260px;
-  height: auto;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.mapa-contenedor {
-  width: 100%;
   height: clamp(260px, 35vh, 420px);
   border-radius: 8px;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .contenedor-mapa-completo:fullscreen {
   background: #fff;
   padding: 16px;
+  position: relative;
+  overflow: visible;
+}
+
+.contenedor-mapa-completo:fullscreen .mapa-toolbar-superior {
+  z-index: 10;
 }
 
 .contenedor-mapa-completo:fullscreen .mapa-contenedor {
-  height: calc(100vh - 120px);
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
   border-radius: 0;
+}
+
+::ng-deep .cdk-overlay-container,
+::ng-deep .cdk-overlay-pane,
+::ng-deep .ant-select-dropdown {
+  z-index: 99999;
 }

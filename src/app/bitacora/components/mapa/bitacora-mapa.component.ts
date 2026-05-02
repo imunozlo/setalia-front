@@ -41,12 +41,17 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
 
   private map!: Map;
   private marker: Marker | null = null;
+  private resizeObserver: ResizeObserver | null = null;
+
   private readonly centroEspana: [number, number] = [-3.7038, 40.4168];
   private readonly zoomInicial = 5.5;
 
   ngAfterViewInit(): void {
     this.inicializarMapa();
+    this.inicializarResizeObserver();
     document.addEventListener('fullscreenchange', this.onFullscreenChange);
+
+    this.recalcularMapa();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -59,13 +64,23 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
 
     if (cambioLat || cambioLng) {
       if (this.latitud != null && this.longitud != null) {
-        this.colocarMarcador(this.longitud, this.latitud);
+        this.colocarMarcador(Number(this.longitud), Number(this.latitud));
       }
     }
   }
 
   ngOnDestroy(): void {
     document.removeEventListener('fullscreenchange', this.onFullscreenChange);
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+
+    if (this.marker) {
+      this.marker.remove();
+      this.marker = null;
+    }
 
     if (this.map) {
       this.map.remove();
@@ -80,7 +95,9 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
     this.map = new maplibregl.Map({
       container: this.mapaRef.nativeElement,
       style: this.getStyle(this.mapaSeleccionado),
-      center: this.longitud != null && this.latitud != null ? [Number(this.longitud), Number(this.latitud)] : this.centroEspana,
+      center: this.longitud != null && this.latitud != null
+        ? [Number(this.longitud), Number(this.latitud)]
+        : this.centroEspana,
       zoom: this.longitud != null && this.latitud != null ? 12 : this.zoomInicial
     });
 
@@ -90,6 +107,8 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
       if (this.latitud != null && this.longitud != null) {
         this.colocarMarcador(Number(this.longitud), Number(this.latitud));
       }
+
+      this.recalcularMapa();
     });
 
     this.map.on('click', e => {
@@ -101,6 +120,22 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
     });
   }
 
+  private inicializarResizeObserver(): void {
+    if (!this.mapaRef?.nativeElement) {
+      return;
+    }
+
+    this.resizeObserver = new ResizeObserver(() => {
+      this.recalcularMapa();
+    });
+
+    this.resizeObserver.observe(this.mapaRef.nativeElement);
+
+    if (this.contenedorMapaFullscreen?.nativeElement) {
+      this.resizeObserver.observe(this.contenedorMapaFullscreen.nativeElement);
+    }
+  }
+
   cambiarMapa(tipo: any): void {
     const valor = (typeof tipo === 'string' ? tipo : tipo?.valor) as TipoMapa;
 
@@ -109,6 +144,7 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
     }
 
     this.mapaSeleccionado = valor;
+
     const center = this.map.getCenter();
     const zoom = this.map.getZoom();
     const bearing = this.map.getBearing();
@@ -122,6 +158,8 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
       if (this.latitud != null && this.longitud != null) {
         this.colocarMarcador(Number(this.longitud), Number(this.latitud));
       }
+
+      this.recalcularMapa();
     });
   }
 
@@ -152,6 +190,8 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
       center: [lng, lat],
       zoom: 13
     });
+
+    this.recalcularMapa();
   }
 
   async toggleFullscreenMapa(): Promise<void> {
@@ -170,11 +210,7 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
         this.mapaFullscreen = false;
       }
 
-      setTimeout(() => {
-        if (this.map) {
-          this.map.resize();
-        }
-      }, 200);
+      this.recalcularMapa();
     } catch (error) {
       console.error('No se pudo cambiar a pantalla completa', error);
     }
@@ -182,12 +218,7 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
 
   private onFullscreenChange = (): void => {
     this.mapaFullscreen = !!document.fullscreenElement;
-
-    setTimeout(() => {
-      if (this.map) {
-        this.map.resize();
-      }
-    }, 200);
+    this.recalcularMapa();
   };
 
   private colocarMarcador(lng: number, lat: number): void {
@@ -199,7 +230,9 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
       this.marker.remove();
     }
 
-    this.marker = new maplibregl.Marker({ draggable: true }).setLngLat([lng, lat]).addTo(this.map);
+    this.marker = new maplibregl.Marker({ draggable: true })
+      .setLngLat([lng, lat])
+      .addTo(this.map);
 
     this.marker.on('dragend', () => {
       const pos = this.marker!.getLngLat();
@@ -292,8 +325,20 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
   }
 
   public recalcularMapa(): void {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       this.map?.resize();
     });
+
+    setTimeout(() => {
+      this.map?.resize();
+    }, 100);
+
+    setTimeout(() => {
+      this.map?.resize();
+    }, 300);
+
+    setTimeout(() => {
+      this.map?.resize();
+    }, 600);
   }
 }

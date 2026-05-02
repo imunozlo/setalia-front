@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ConsultasStoreService } from 'src/app/maestros/consultas/service/consultas.store.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,13 @@ import { BitacoraModel } from '../../models/bitacora.model';
 import { BitacoraFormularioConfig } from '../../../_infra/shared/components/formularios/configuraciones/configuracion/bitacora-formulario.config';
 import { Municipio, Provincia } from '../../../_infra/shared/models/ubicacion.model';
 import { UbicacionService } from '../../../_infra/shared/services/ubicacion.service';
+import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import {UserModel} from "../../../maestros/usuarios/models/user.model";
+import {BitacorasStoreService} from "../../services/bitacoras.store.service";
+import {BitacoraFiltroModel} from "../../models/bitacora-filtro.model";
+import {DialogEdicionSetaComponent} from "../../../maestros/setas/dialogs/dialog-edicion-seta.component";
+import {DrawerPublicarComponent} from "../../dialogs/publicar/drawer-publicar.component";
+import {SetaModel} from "../../../maestros/setas/models/seta.model";
 
 @Component({
   selector: 'app-detalle-bitacora',
@@ -26,11 +33,14 @@ export class DetalleBitacoraComponent implements OnInit, OnDestroy {
   provincias: Provincia[] = [];
   municipios: Municipio[] = [];
   todosLosMunicipios: Municipio[] = [];
+  @ViewChild('drawerPublicar') drawerSetaComponent: DrawerPublicarComponent;
 
   constructor(
     private consultasStoreService: ConsultasStoreService,
     public service: BitacoraService,
+    public storeService: BitacorasStoreService,
     private router: Router,
+    @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private ubicacionService: UbicacionService,
     private loaderService: LoaderService,
     private activatedRouter: ActivatedRoute
@@ -49,9 +59,11 @@ export class DetalleBitacoraComponent implements OnInit, OnDestroy {
     this.listasValores = {
       setas: this.consultasStoreService.obtenerListaValores('SETAS')
     };
+    const usuario = new UserModel().deserialize(this.tokenService.get());
     this.cargarUbicaciones();
     if (this.esNuevo) {
       this.bitacora = new BitacoraModel().initialize();
+      this.bitacora.usuarioId = usuario.id;
     } else {
       this.listasValores['municipios'] = this.todosLosMunicipios;
       this.cargarDatos();
@@ -128,6 +140,9 @@ export class DetalleBitacoraComponent implements OnInit, OnDestroy {
               // Si no es nueva, solo recargar los datos
               this.cargarDatos();
             }
+            const filtros = new BitacoraFiltroModel().initialize();
+            filtros.usuarioId = response.usuarioId;
+            this.storeService.setFiltrados(filtros);
           }
         },
         error: err => {
@@ -158,4 +173,7 @@ export class DetalleBitacoraComponent implements OnInit, OnDestroy {
     this.bitacora.longitud = event.longitud;
   }
 
+  publicar() {
+    this.drawerSetaComponent.abrir(this.bitacora);
+  }
 }

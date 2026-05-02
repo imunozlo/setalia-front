@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 import { ConsultasStoreService } from 'src/app/maestros/consultas/service/consultas.store.service';
@@ -20,6 +20,8 @@ import {NzModalService} from "ng-zorro-antd/modal";
 import {
   DialogConfirmacionComponent
 } from "../../../_infra/shared/components/dialogs/confirmacion/dialog-confirmacion.component";
+import { UserModel } from '../../../maestros/usuarios/models/user.model';
+import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
 @Component({
   selector: 'app-buscador-bitacoras',
@@ -45,6 +47,7 @@ export class BuscadorBitacorasComponent
     override i18n: I18NService,
     override excelService: ExcelService,
     public service: BitacoraService,
+    @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     override storeService: BitacorasStoreService,
     private consultasStoreService: ConsultasStoreService,
     private ubicacionService: UbicacionService,
@@ -56,6 +59,8 @@ export class BuscadorBitacorasComponent
 
   ngOnInit() {
     this.filtros = this.storeService.obtenerFiltros(this.columnas);
+    const usuario = new UserModel().deserialize(this.tokenService.get());
+    this.filtros.usuarioId = usuario.id;
     this.ubicacionService.getUbicaciones().subscribe(data => {
       this.ubicaciones = data;
       this.cargarDatos();
@@ -101,7 +106,26 @@ export class BuscadorBitacorasComponent
     this.listasValores = {
       setas: this.consultasStoreService.obtenerListaValores('SETAS')
     };
-    debugger;
+    this.cargarUbicaciones();
+  }
+
+  private cargarUbicaciones() {
+    this.ubicacionService.getUbicaciones().subscribe({
+      next: data => {
+        this.listasValores['municipios'] = data.municipios;
+      },
+      error: err => {
+        console.error('Error cargando JSON:', err);
+      }
+    });
+    this.ubicacionService.getUbicaciones().subscribe({
+      next: data => {
+        this.listasValores["provincias"] = data.provincias;
+      },
+      error: err => {
+        console.error('Error cargando JSON:', err);
+      }
+    });
   }
 
   eliminar(id: number) {
