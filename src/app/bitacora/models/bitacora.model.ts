@@ -14,6 +14,7 @@ export class BitacoraModel extends BaseModel {
   setaNombreComun: string;
   publico: boolean;
   fecha: Date;
+  fechaPublico: Date;
   setaId: number;
   latitud: number | null;
   longitud: number | null;

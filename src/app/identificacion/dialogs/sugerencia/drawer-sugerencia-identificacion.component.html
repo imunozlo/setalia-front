@@ -1,0 +1,56 @@
+<nz-drawer
+  *ngIf="sugerencia"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="abierto"
+  [nzTitle]="'Añadir sugerencia de identificación'"
+  [nzFooter]="footer"
+  (nzOnClose)="cerrar()"
+>
+  <div *nzDrawerContent class="drawer-sugerencia">
+    <section class="aviso-sugerencia">
+      <div class="aviso-sugerencia__titulo">
+        Propón una identificación
+      </div>
+
+      <p class="aviso-sugerencia__texto">
+        Selecciona la especie que crees que corresponde a la solicitud. Tu sugerencia
+        se tendrá en cuenta para resolver automáticamente la identificación si coincide
+        con la de otros usuarios.
+      </p>
+
+      <p class="aviso-sugerencia__texto">
+        Puedes añadir un comentario con los rasgos que te han llevado a esa identificación.
+      </p>
+    </section>
+
+    <div class="formulario-sugerencia">
+      <lib-formularios
+        [formulario]="formulario"
+        [(estado)]="formularioValid"
+        [listasValores]="listasValores"
+        [(modelo)]="sugerencia"
+      />
+    </div>
+  </div>
+
+  <ng-template #footer>
+    <div class="flex-between-center">
+      <lib-boton
+        [icono]="'close'"
+        [titulo]="'app.cancelar'"
+        [color]="'#1f1f1f'"
+        [colorFondo]="'#FFF'"
+        [border]="''"
+        (enviarEvent)="cerrar()"
+      />
+
+      <lib-boton-guardar
+        (guardarEvent)="guardar()"
+        [disabled]="!formularioValid"
+        [titulo]="'app.guardar'"
+      />
+    </div>
+  </ng-template>
+</nz-drawer>

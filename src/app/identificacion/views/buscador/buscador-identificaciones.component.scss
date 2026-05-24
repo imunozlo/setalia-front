@@ -1,0 +1,23 @@
+.estado-identificacion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 86px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.estado-identificacion--abierta {
+  color: #1d6f74;
+  background: rgba(100, 189, 190, 0.18);
+  border: 1px solid rgba(100, 189, 190, 0.36);
+}
+
+.estado-identificacion--resuelta {
+  color: #42617f;
+  background: rgba(66, 91, 118, 0.14);
+  border: 1px solid rgba(66, 91, 118, 0.28);
+}

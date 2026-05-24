@@ -1,5 +1,6 @@
 <nz-card class="card-mapa">
   <div #contenedorMapaFullscreen class="contenedor-mapa-completo">
+
     <div class="mapa-toolbar-superior">
       <div class="campo-inline campo-mapa-select">
         <lib-etiqueta
@@ -7,6 +8,7 @@
           [bold]="false"
           [obligatorio]="false"
         />
+
         <lib-input-select
           [(valor)]="mapaSeleccionado"
           [elementos]="tiposMapa"
@@ -17,42 +19,54 @@
         />
       </div>
 
-      <div class="campo-inline campo-coordenada">
-        <lib-etiqueta
-          [etiqueta]="'Latitud'"
-          [bold]="false"
-          [obligatorio]="false"
-        />
-        <lib-input
-          [(valor)]="latitud"
-          (cambioChange)="onCoordenadasEditadas()"
-          [tipo]="'number'"
-        />
-      </div>
+      <ng-container *ngIf="!modoPublico">
+        <div class="campo-inline campo-coordenada">
+          <lib-etiqueta
+            [etiqueta]="'Latitud'"
+            [bold]="false"
+            [obligatorio]="false"
+          />
 
-      <div class="campo-inline campo-coordenada">
-        <lib-etiqueta
-          [etiqueta]="'Longitud'"
-          [bold]="false"
-          [obligatorio]="false"
-        />
-        <lib-input
-          [(valor)]="longitud"
-          (cambioChange)="onCoordenadasEditadas()"
-          [tipo]="'number'"
-        />
-      </div>
+          <lib-input
+            [(valor)]="latitud"
+            (cambioChange)="onCoordenadasEditadas()"
+            [tipo]="'number'"
+          />
+        </div>
+
+        <div class="campo-inline campo-coordenada">
+          <lib-etiqueta
+            [etiqueta]="'Longitud'"
+            [bold]="false"
+            [obligatorio]="false"
+          />
+
+          <lib-input
+            [(valor)]="longitud"
+            (cambioChange)="onCoordenadasEditadas()"
+            [tipo]="'number'"
+          />
+        </div>
+      </ng-container>
 
       <div class="acciones-mapa">
         <lib-boton
+          *ngIf="!modoPublico"
           (click)="aplicarCoordenadas()"
           [titulo]="'Ir a coordenadas'"
         />
+
         <lib-boton
           (click)="toggleFullscreenMapa()"
           [titulo]="mapaFullscreen ? 'Salir de pantalla completa' : 'Maximizar mapa'"
         />
       </div>
+    </div>
+
+    <div
+      class="mapa-aviso-publico"
+      *ngIf="modoPublico && (latitud == null || longitud == null)">
+      No hay ubicación aproximada disponible para esta publicación.
     </div>
 
     <div #mapa class="mapa-contenedor"></div>

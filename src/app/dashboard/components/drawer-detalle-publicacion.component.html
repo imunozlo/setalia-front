@@ -1,0 +1,155 @@
+<nz-drawer
+  [nzVisible]="visible"
+  [nzWidth]="'92vw'"
+  [nzClosable]="true"
+  [nzMaskClosable]="true"
+  [nzTitle]="publicacion?.tituloPublico || 'Detalle de la publicación'"
+  (nzOnClose)="cerrar()">
+
+  <ng-container *nzDrawerContent>
+    <div class="drawer-publicacion" *ngIf="publicacion">
+
+      <div class="drawer-publicacion__contenido">
+
+        <section class="drawer-publicacion__informacion">
+          <nz-card class="card-informacion-publica">
+            <div class="card-informacion-publica__contenido">
+
+              <div class="bloque-titulo-publicacion">
+                <h2>
+                  {{ publicacion.tituloPublico || 'Publicación sin título' }}
+                </h2>
+
+                <div class="meta-publicacion">
+                  <span *ngIf="publicacion.fechaPublico">
+                    {{ publicacion.fechaPublico | date:'dd/MM/yyyy' }}
+                  </span>
+
+                  <span
+                    *ngIf="publicacion.fechaPublico && obtenerUbicacion()"
+                    class="separador-meta">
+                    ·
+                  </span>
+
+                  <span *ngIf="obtenerUbicacion()">
+                    {{ obtenerUbicacion() }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="ficha-publicacion">
+
+                <div class="dato-publicacion" *ngIf="publicacion.usuarioDescripcion">
+                  <span class="dato-publicacion__etiqueta">
+                    Publicado por
+                  </span>
+                  <span class="dato-publicacion__valor">
+                    {{ publicacion.usuarioDescripcion }}
+                  </span>
+                </div>
+
+                <div
+                  class="dato-publicacion"
+                  *ngIf="publicacion.setaNombreComun || publicacion.setaNombreCientifico">
+                  <span class="dato-publicacion__etiqueta">
+                    Seta
+                  </span>
+
+                  <div class="dato-publicacion__valor dato-publicacion__valor--seta">
+                    <div
+                      class="seta-comun"
+                      *ngIf="publicacion.setaNombreComun">
+                      {{ publicacion.setaNombreComun }}
+                    </div>
+
+                    <div
+                      class="seta-cientifico"
+                      *ngIf="publicacion.setaNombreCientifico">
+                      {{ publicacion.setaNombreCientifico }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dato-publicacion" *ngIf="publicacion.provinciaDescripcion">
+                  <span class="dato-publicacion__etiqueta">
+                    Provincia
+                  </span>
+                  <span class="dato-publicacion__valor">
+                    {{ publicacion.provinciaDescripcion }}
+                  </span>
+                </div>
+
+                <div class="dato-publicacion" *ngIf="publicacion.municipioDescripcion">
+                  <span class="dato-publicacion__etiqueta">
+                    Municipio
+                  </span>
+                  <span class="dato-publicacion__valor">
+                    {{ publicacion.municipioDescripcion }}
+                  </span>
+                </div>
+
+                <div class="dato-publicacion dato-publicacion--observaciones">
+                  <span class="dato-publicacion__etiqueta">
+                    Observaciones
+                  </span>
+
+                  <div class="dato-publicacion__valor observaciones-publicas">
+                    {{ publicacion.observacionesPublico || 'Sin observaciones públicas.' }}
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </nz-card>
+        </section>
+
+        <section class="drawer-publicacion__media">
+          <nz-card class="card-media-publica">
+            <div class="card-media-publica__contenido">
+
+              <nz-tabset class="tabs-media-publica">
+
+                <nz-tab nzTitle="Ubicación">
+                  <div class="panel-media-publico">
+                    <div
+                      class="aviso-ubicacion-aproximada"
+                      *ngIf="tieneUbicacionAproximada()">
+                      La ubicación se muestra de forma aproximada.
+                    </div>
+
+                    <div
+                      class="aviso-ubicacion-aproximada aviso-ubicacion-aproximada--sin-datos"
+                      *ngIf="!tieneUbicacionAproximada()">
+                      Esta publicación no dispone de ubicación aproximada.
+                    </div>
+
+                    <app-bitacora-mapa
+                      [latitud]="publicacion.latitud"
+                      [longitud]="publicacion.longitud"
+                      [modoPublico]="true"
+                      [radioZonaAproximadaKm]="20">
+                    </app-bitacora-mapa>
+                  </div>
+                </nz-tab>
+
+                <nz-tab nzTitle="Fotos">
+                  <div class="panel-media-publico">
+                    <app-bitacora-fotos
+                      [bitacoraId]="publicacion.id"
+                      [fotos]="publicacion.fotos"
+                      [soloLectura]="true">
+                    </app-bitacora-fotos>
+                  </div>
+                </nz-tab>
+
+              </nz-tabset>
+
+            </div>
+          </nz-card>
+        </section>
+
+      </div>
+    </div>
+  </ng-container>
+</nz-drawer>

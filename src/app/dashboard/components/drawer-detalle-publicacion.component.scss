@@ -1,0 +1,298 @@
+:host {
+  display: block;
+}
+
+/* =========================================================
+   CUERPO GENERAL DEL DRAWER
+   ========================================================= */
+
+:host ::ng-deep .ant-drawer-body {
+  padding: 24px 28px 28px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.drawer-publicacion {
+  height: 100%;
+  min-height: 0;
+}
+
+.drawer-publicacion__contenido {
+  height: 100%;
+  min-height: 640px;
+  display: grid;
+  grid-template-columns: minmax(380px, 0.95fr) minmax(560px, 1.35fr);
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   COLUMNAS PRINCIPALES
+   ========================================================= */
+
+.drawer-publicacion__informacion,
+.drawer-publicacion__media {
+  min-height: 0;
+  display: flex;
+}
+
+/* =========================================================
+   TARJETAS
+   ========================================================= */
+
+.card-informacion-publica,
+.card-media-publica {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/*
+  Neutralizamos el body de nz-card y gestionamos nosotros
+  el padding con contenedores internos propios.
+*/
+:host ::ng-deep .card-informacion-publica .ant-card-body,
+:host ::ng-deep .card-media-publica .ant-card-body {
+  height: 100%;
+  min-height: 0;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card-informacion-publica__contenido {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 28px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.card-media-publica__contenido {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* =========================================================
+   CABECERA DE INFORMACIÓN
+   ========================================================= */
+
+.bloque-titulo-publicacion {
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(66, 91, 118, 0.15);
+
+  h2 {
+    margin: 0 0 10px;
+    color: #334a64;
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+}
+
+.meta-publicacion {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: #61748a;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.separador-meta {
+  opacity: 0.75;
+}
+
+/* =========================================================
+   FICHA DE DATOS PÚBLICOS
+   ========================================================= */
+
+.ficha-publicacion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dato-publicacion {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dato-publicacion__etiqueta {
+  color: #61748a;
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.dato-publicacion__valor {
+  color: #334a64;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.dato-publicacion__valor--seta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.seta-comun {
+  color: #334a64;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.seta-cientifico {
+  color: #566d84;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.dato-publicacion--observaciones {
+  margin-top: 2px;
+}
+
+.observaciones-publicas {
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: rgba(100, 189, 190, 0.08);
+  border: 1px solid rgba(100, 189, 190, 0.2);
+  color: #334a64;
+  font-weight: 400;
+  white-space: pre-wrap;
+}
+
+/* =========================================================
+   BLOQUE DE MAPA / FOTOS
+   ========================================================= */
+
+.tabs-media-publica {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.tabs-media-publica ::ng-deep .ant-tabs-nav {
+  margin-bottom: 18px;
+}
+
+.tabs-media-publica ::ng-deep .ant-tabs-content-holder,
+.tabs-media-publica ::ng-deep .ant-tabs-content,
+.tabs-media-publica ::ng-deep .ant-tabs-tabpane {
+  height: 100%;
+  min-height: 0;
+}
+
+/*
+  IMPORTANTE:
+  No poner display: flex aquí.
+  Si se fuerza sobre .ant-tabs-content, el mapa deja de calcular bien su ancho.
+*/
+.tabs-media-publica ::ng-deep .ant-tabs-tabpane {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-media-publico {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 14px;
+}
+
+.panel-media-publico app-bitacora-mapa,
+.panel-media-publico app-bitacora-fotos {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* =========================================================
+   AVISO DE UBICACIÓN APROXIMADA
+   ========================================================= */
+
+.aviso-ubicacion-aproximada {
+  flex: 0 0 auto;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: rgba(100, 189, 190, 0.12);
+  border: 1px solid rgba(100, 189, 190, 0.28);
+  color: #35556f;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.aviso-ubicacion-aproximada--sin-datos {
+  background: rgba(66, 91, 118, 0.08);
+  border-color: rgba(66, 91, 118, 0.16);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  :host ::ng-deep .ant-drawer-body {
+    padding: 20px;
+    overflow: auto;
+  }
+
+  .drawer-publicacion__contenido {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .drawer-publicacion__informacion {
+    min-height: auto;
+  }
+
+  .drawer-publicacion__media {
+    min-height: 720px;
+  }
+}
+
+@media (max-width: 768px) {
+  :host ::ng-deep .ant-drawer-body {
+    padding: 16px;
+  }
+
+  .drawer-publicacion__contenido {
+    gap: 18px;
+  }
+
+  .card-informacion-publica__contenido {
+    padding: 20px;
+  }
+
+  .card-media-publica__contenido {
+    padding: 16px;
+  }
+
+  .bloque-titulo-publicacion {
+    h2 {
+      font-size: 21px;
+    }
+  }
+}

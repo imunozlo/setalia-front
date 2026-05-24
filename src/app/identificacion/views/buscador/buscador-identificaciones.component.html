@@ -1,0 +1,84 @@
+<div class="card altura">
+  <app-skelteon *ngIf="loading" [files]="15"></app-skelteon>
+
+  <div class="buscador-paginacion" *ngIf="!loading">
+    <lib-tabla-botonera-principal
+      [mostrarFiltro]="false"
+      [mostrarExportar]="false"
+      [titulo]="'identificacion'"
+      [(maximizado)]="maximizado"
+      [permisos]="'MODULO_IDENTIFICACION_EDICION'"
+      (refrescarFiltrosEvent)="limpiarFiltros()"
+    />
+
+    <div class="contenedor tabla">
+      <nz-table
+        #basicTable
+        [nzLoading]="loading"
+        [nzPageSize]="10000"
+        [nzHideOnSinglePage]="true"
+        [nzData]="elementos">
+
+        <lib-columnas-tablas
+          *ngIf="!loading && listasValores"
+          [ordenLocal]="true"
+          [(columnas)]="columnas"
+          [listasValores]="listasValores"
+          [elementos]="elementos"
+          (buscarEvent)="filtrar()"
+        />
+
+        <tbody>
+        <tr
+          *ngFor="let dato of basicTable.data; index as i"
+          (click)="editarElemento(dato.id)"
+          class="pointer">
+
+          <td>
+            {{ dato.fecha | date: 'dd/MM/yyyy' }}
+          </td>
+
+          <td>
+            {{ dato.titulo }}
+          </td>
+
+          <td>
+            {{ dato.provinciaDescripcion }}
+          </td>
+
+          <td>
+            {{ dato.municipioDescripcion }}
+          </td>
+
+          <td>
+              <span [class]="obtenerClaseEstado(dato.estado)">
+                {{ obtenerEstadoDescripcion(dato.estado) }}
+              </span>
+          </td>
+
+          <td>
+            {{ dato.usuarioDescripcion }}
+          </td>
+
+          <td class="text-center">
+            <i
+              class="icono-tabla"
+              nz-icon
+              nzType="eye">
+            </i>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+
+    <lib-tabla-botonera-secundaria
+      [loading]="loading"
+      [filtros]="filtros"
+      [ocultarPaginacion]="false"
+      (nuevoEvent)="nuevoElemento()"
+      [tituloNuevo]="'app.nuevo'"
+      (filtrar)="filtrarPaginacion($event)"
+    />
+  </div>
+</div>

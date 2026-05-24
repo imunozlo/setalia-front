@@ -33,6 +33,10 @@ export const appRouting: Routes = [
         path: 'bitacora',
         loadChildren: () => import('./bitacora/bitacora.module').then(m => m.BitacoraModule)
       },
+      {
+        path: 'identificacion',
+        loadChildren: () => import('./identificacion/identificacion.module').then(m => m.IdentificacionModule)
+      },
       { path: 'accesos', loadChildren: () => import('./maestros/usuarios/user.module').then(m => m.UserModule) },
       {
         path: 'configuracion',

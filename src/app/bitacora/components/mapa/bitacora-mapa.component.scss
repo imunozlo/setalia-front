@@ -3,6 +3,7 @@
   flex: 1 1 auto;
   min-height: 0;
   height: 100%;
+  width: 100%;
 }
 
 .card-mapa {
@@ -10,6 +11,15 @@
   flex: 1 1 auto;
   min-height: 0;
   height: 100%;
+  width: 100%;
+}
+
+.card-mapa ::ng-deep .ant-card {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .card-mapa ::ng-deep .ant-card-body {
@@ -17,6 +27,7 @@
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
+  width: 100%;
   overflow: visible;
 }
 
@@ -25,6 +36,7 @@
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
+  width: 100%;
   position: relative;
   overflow: visible;
 }
@@ -33,9 +45,11 @@
   display: flex;
   gap: 16px;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 16px;
   flex: 0 0 auto;
+  width: 100%;
   position: relative;
   z-index: 10;
 }
@@ -60,7 +74,7 @@
 
 .campo-mapa-select {
   min-width: 320px;
-  flex: 1 1 320px;
+  flex: 0 1 320px;
 }
 
 .campo-coordenada {
@@ -73,7 +87,20 @@
   gap: 12px;
   align-items: center;
   flex-wrap: wrap;
-  margin-left: auto;
+}
+
+.mapa-aviso-publico {
+  flex: 0 0 auto;
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #536b83;
+  background: rgba(66, 91, 118, 0.08);
+  border: 1px solid rgba(66, 91, 118, 0.18);
+  font-size: 14px;
+  line-height: 1.45;
+  box-sizing: border-box;
 }
 
 .mapa-contenedor {

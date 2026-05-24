@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ConsultasStoreService } from 'src/app/maestros/consultas/service/consultas.store.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,12 +9,10 @@ import { BitacoraFormularioConfig } from '../../../_infra/shared/components/form
 import { Municipio, Provincia } from '../../../_infra/shared/models/ubicacion.model';
 import { UbicacionService } from '../../../_infra/shared/services/ubicacion.service';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
-import {UserModel} from "../../../maestros/usuarios/models/user.model";
-import {BitacorasStoreService} from "../../services/bitacoras.store.service";
-import {BitacoraFiltroModel} from "../../models/bitacora-filtro.model";
-import {DialogEdicionSetaComponent} from "../../../maestros/setas/dialogs/dialog-edicion-seta.component";
-import {DrawerPublicarComponent} from "../../dialogs/publicar/drawer-publicar.component";
-import {SetaModel} from "../../../maestros/setas/models/seta.model";
+import { UserModel } from '../../../maestros/usuarios/models/user.model';
+import { BitacorasStoreService } from '../../services/bitacoras.store.service';
+import { BitacoraFiltroModel } from '../../models/bitacora-filtro.model';
+import { DrawerPublicarComponent } from '../../dialogs/publicar/drawer-publicar.component';
 
 @Component({
   selector: 'app-detalle-bitacora',

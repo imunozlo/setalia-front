@@ -64,6 +64,7 @@ export class DataService {
         }
       }),
       catchError(err => {
+        debugger;
         if (openDialogAfterResult) {
           this.msg.remove(idMensaje);
           this.msg.error(this.i18n.traducir(err.error.errorTag), { nzDuration: 5000 });
@@ -87,6 +88,7 @@ export class DataService {
           return resp;
         }),
         catchError(err => {
+          debugger;
           this.msg.remove(idMensaje);
           throwError(() => new Error(err));
           this.msg.error(this.i18n.traducir(err.error.errorTag), { nzDuration: 5000 });
@@ -101,6 +103,7 @@ export class DataService {
           return resp;
         }),
         catchError(err => {
+          debugger;
           this.msg.remove(idMensaje);
           throwError(() => new Error(err));
           this.msg.error(this.i18n.traducir(err.error.errorTag), { nzDuration: 5000 });

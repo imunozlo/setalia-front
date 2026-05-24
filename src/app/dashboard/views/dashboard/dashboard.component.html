@@ -1,2 +1,198 @@
-<nz-row></nz-row>
+<nz-row [nzGutter]="32" class="fila-bloques">
 
+  <nz-col nzSpan="24">
+    <div class="card-fondo publicaciones-contenedor">
+
+      <div class="publicaciones-header">
+        <lib-titulo [titulo]="'Publicaciones micológicas'"></lib-titulo>
+      </div>
+
+      <section class="filtros-publicaciones">
+        <div class="filtros-publicaciones__grid">
+
+          <div class="filtro-campo filtro-campo--titulo">
+            <lib-etiqueta
+              [etiqueta]="'Título'"
+              [bold]="false"
+              [obligatorio]="false"
+            />
+            <lib-input [(valor)]="filtros.titulo" />
+          </div>
+
+          <div class="filtro-campo filtro-campo--fecha">
+            <lib-etiqueta
+              [etiqueta]="'Rango de fechas'"
+              [bold]="false"
+              [obligatorio]="false"
+            />
+            <lib-input-date-range [(valor)]="filtros.fecha" />
+          </div>
+
+          <div class="filtro-campo filtro-campo--seta">
+            <lib-etiqueta
+              [etiqueta]="'Seta'"
+              [bold]="false"
+              [obligatorio]="false"
+            />
+            <lib-input-select-multiple
+              [campoMostrar]="'nombreCientifico'"
+              [campo]="'nombreCientifico'"
+              [campoOrden]="'nombreCientifico'"
+              [(valor)]="filtros.setaId"
+              [elementos]="setas"></lib-input-select-multiple>
+          </div>
+
+          <div class="filtro-campo filtro-campo--provincia">
+            <lib-etiqueta
+              [etiqueta]="'Provincia'"
+              [bold]="false"
+              [obligatorio]="false"
+            />
+            <lib-input-select
+              [(valor)]="provinciaSeleccionada"
+              [elementos]="provincias"
+              [campo]="'descripcion'"
+              [campoOrden]="'descripcion'"
+              [ocultarNoActivos]="false"
+              (valorChange)="onProvinciaChange($event)"
+            />
+          </div>
+
+          <div class="filtro-campo filtro-campo--municipio">
+            <lib-etiqueta
+              [etiqueta]="'Municipio'"
+              [bold]="false"
+              [obligatorio]="false"
+            />
+            <lib-input-select
+              [(valor)]="municipioSeleccionado"
+              [elementos]="municipios"
+              [campo]="'descripcion'"
+              [campoOrden]="'descripcion'"
+              [ocultarNoActivos]="false"
+            />
+          </div>
+
+        </div>
+
+        <div class="filtros-publicaciones__acciones">
+          <lib-boton
+            [titulo]="'Buscar'"
+            (click)="buscar()"
+          />
+
+          <lib-boton
+            [titulo]="'Limpiar filtros'"
+            [color]="'#425b76'"
+            [colorFondo]="'#ffffff'"
+            (click)="limpiarFiltros()"
+          />
+        </div>
+      </section>
+
+      <nz-row
+        [nzGutter]="[16, 16]"
+        class="margin-top-xlg"
+        *ngIf="!loading && publicaciones.length > 0">
+
+        <nz-col
+          *ngFor="let publicacion of publicaciones; trackBy: trackById"
+          nzXs="24"
+          nzSm="12"
+          nzMd="8"
+          nzLg="8"
+          nzXl="8">
+
+          <nz-card
+            class="publicacion-card"
+            [nzBordered]="false"
+            (click)="verDetalle(publicacion)"
+            tabindex="0"
+            role="button"
+            (keydown.enter)="verDetalle(publicacion)">
+
+            <div class="publicacion-imagen">
+              <img
+                [src]="obtenerImagenPublicacion(publicacion)"
+                [alt]="obtenerAltImagenPublicacion(publicacion)"
+              />
+            </div>
+
+            <div class="publicacion-info">
+
+              <h3 class="publicacion-titulo">
+                {{ publicacion.tituloPublico || 'Publicación sin título' }}
+              </h3>
+
+              <div class="publicacion-meta">
+                <span *ngIf="publicacion.fechaPublico">
+                  {{ publicacion.fechaPublico | date:'dd/MM/yyyy' }}
+                </span>
+
+                <span
+                  *ngIf="publicacion.fechaPublico && obtenerUbicacionPublicacion(publicacion)">
+                  ·
+                </span>
+
+                <span *ngIf="obtenerUbicacionPublicacion(publicacion)">
+                  {{ obtenerUbicacionPublicacion(publicacion) }}
+                </span>
+              </div>
+
+              <div
+                class="publicacion-seta"
+                *ngIf="publicacion.setaNombreComun || publicacion.setaNombreCientifico">
+
+                <div
+                  class="publicacion-seta__comun"
+                  *ngIf="publicacion.setaNombreComun">
+                  {{ publicacion.setaNombreComun }}
+                </div>
+
+                <div
+                  class="publicacion-seta__cientifico"
+                  *ngIf="publicacion.setaNombreCientifico">
+                  {{ publicacion.setaNombreCientifico }}
+                </div>
+
+              </div>
+
+              <p
+                class="publicacion-observaciones"
+                *ngIf="publicacion.observacionesPublico">
+                {{ publicacion.observacionesPublico }}
+              </p>
+
+            </div>
+
+          </nz-card>
+
+        </nz-col>
+
+      </nz-row>
+
+      <div class="publicaciones-loading" *ngIf="loading">
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+      </div>
+
+      <nz-empty
+        *ngIf="!loading && publicaciones.length === 0"
+        nzNotFoundContent="Todavía no hay publicaciones públicas">
+      </nz-empty>
+
+      <div class="publicaciones-paginacion" *ngIf="filtros.total > filtros.pageSize">
+        <nz-pagination
+          [nzPageIndex]="filtros.pageIndex"
+          [nzPageSize]="filtros.pageSize"
+          [nzTotal]="filtros.total"
+          [nzShowSizeChanger]="false"
+          (nzPageIndexChange)="cambiarPagina($event)">
+        </nz-pagination>
+      </div>
+
+    </div>
+  </nz-col>
+
+</nz-row>
+
+<app-drawer-detalle-publicacion #drawerDetallePublicacion />

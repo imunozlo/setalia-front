@@ -23,6 +23,19 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() latitud: number | null = null;
   @Input() longitud: number | null = null;
 
+  /**
+   * En modo público:
+   * - no se puede editar la ubicación;
+   * - no se muestra el marcador exacto;
+   * - se dibuja una zona aproximada.
+   */
+  @Input() modoPublico = false;
+
+  /**
+   * Radio del área aproximada en km.
+   */
+  @Input() radioZonaAproximadaKm = 20;
+
   @Output() latitudChange = new EventEmitter<number | null>();
   @Output() longitudChange = new EventEmitter<number | null>();
   @Output() coordenadasChange = new EventEmitter<{ latitud: number | null; longitud: number | null }>();
@@ -46,6 +59,10 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
   private readonly centroEspana: [number, number] = [-3.7038, 40.4168];
   private readonly zoomInicial = 5.5;
 
+  private readonly sourceZonaAproximada = 'zona-aproximada-source';
+  private readonly layerZonaAproximadaRelleno = 'zona-aproximada-fill';
+  private readonly layerZonaAproximadaBorde = 'zona-aproximada-line';
+
   ngAfterViewInit(): void {
     this.inicializarMapa();
     this.inicializarResizeObserver();
@@ -55,17 +72,17 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.map) {
+    if (!this.map || !this.map.isStyleLoaded()) {
       return;
     }
 
     const cambioLat = changes['latitud'];
     const cambioLng = changes['longitud'];
+    const cambioModoPublico = changes['modoPublico'];
+    const cambioRadio = changes['radioZonaAproximadaKm'];
 
-    if (cambioLat || cambioLng) {
-      if (this.latitud != null && this.longitud != null) {
-        this.colocarMarcador(Number(this.longitud), Number(this.latitud));
-      }
+    if (cambioLat || cambioLng || cambioModoPublico || cambioRadio) {
+      this.actualizarRepresentacionUbicacion();
     }
   }
 
@@ -98,20 +115,23 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
       center: this.longitud != null && this.latitud != null
         ? [Number(this.longitud), Number(this.latitud)]
         : this.centroEspana,
-      zoom: this.longitud != null && this.latitud != null ? 12 : this.zoomInicial
+      zoom: this.longitud != null && this.latitud != null
+        ? this.modoPublico ? 8 : 12
+        : this.zoomInicial
     });
 
     this.map.addControl(new maplibregl.NavigationControl(), 'top-right');
 
     this.map.on('load', () => {
-      if (this.latitud != null && this.longitud != null) {
-        this.colocarMarcador(Number(this.longitud), Number(this.latitud));
-      }
-
+      this.actualizarRepresentacionUbicacion();
       this.recalcularMapa();
     });
 
     this.map.on('click', e => {
+      if (this.modoPublico) {
+        return;
+      }
+
       const lng = Number(e.lngLat.lng.toFixed(8));
       const lat = Number(e.lngLat.lat.toFixed(8));
 
@@ -154,11 +174,7 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
 
     this.map.once('styledata', () => {
       this.map.jumpTo({ center, zoom, bearing, pitch });
-
-      if (this.latitud != null && this.longitud != null) {
-        this.colocarMarcador(Number(this.longitud), Number(this.latitud));
-      }
-
+      this.actualizarRepresentacionUbicacion();
       this.recalcularMapa();
     });
   }
@@ -168,7 +184,7 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
   }
 
   aplicarCoordenadas(): void {
-    if (!this.map) {
+    if (!this.map || this.modoPublico) {
       return;
     }
 
@@ -221,14 +237,42 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
     this.recalcularMapa();
   };
 
-  private colocarMarcador(lng: number, lat: number): void {
-    if (!this.map) {
+  private actualizarRepresentacionUbicacion(): void {
+    if (!this.map || !this.map.isStyleLoaded()) {
       return;
     }
 
-    if (this.marker) {
-      this.marker.remove();
+    if (this.latitud == null || this.longitud == null) {
+      this.eliminarMarcador();
+      this.eliminarZonaAproximada();
+      return;
     }
+
+    const lat = Number(this.latitud);
+    const lng = Number(this.longitud);
+
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+      this.eliminarMarcador();
+      this.eliminarZonaAproximada();
+      return;
+    }
+
+    if (this.modoPublico) {
+      this.eliminarMarcador();
+      this.dibujarZonaAproximada(lng, lat);
+      return;
+    }
+
+    this.eliminarZonaAproximada();
+    this.colocarMarcador(lng, lat);
+  }
+
+  private colocarMarcador(lng: number, lat: number): void {
+    if (!this.map || this.modoPublico) {
+      return;
+    }
+
+    this.eliminarMarcador();
 
     this.marker = new maplibregl.Marker({ draggable: true })
       .setLngLat([lng, lat])
@@ -241,6 +285,153 @@ export class BitacoraMapaComponent implements AfterViewInit, OnChanges, OnDestro
 
       this.actualizarCoordenadas(nuevaLat, nuevaLng);
     });
+  }
+
+  private eliminarMarcador(): void {
+    if (this.marker) {
+      this.marker.remove();
+      this.marker = null;
+    }
+  }
+
+  private dibujarZonaAproximada(lng: number, lat: number): void {
+    if (!this.map) {
+      return;
+    }
+
+    const geoJson = this.generarCirculoGeoJson(
+      lng,
+      lat,
+      this.radioZonaAproximadaKm
+    );
+
+    const sourceExistente = this.map.getSource(this.sourceZonaAproximada) as any;
+
+    if (sourceExistente) {
+      sourceExistente.setData(geoJson);
+    } else {
+      this.map.addSource(this.sourceZonaAproximada, {
+        type: 'geojson',
+        data: geoJson
+      });
+
+      this.map.addLayer({
+        id: this.layerZonaAproximadaRelleno,
+        type: 'fill',
+        source: this.sourceZonaAproximada,
+        paint: {
+          'fill-color': '#64bdbe',
+          'fill-opacity': 0.24
+        }
+      });
+
+      this.map.addLayer({
+        id: this.layerZonaAproximadaBorde,
+        type: 'line',
+        source: this.sourceZonaAproximada,
+        paint: {
+          'line-color': '#3f9194',
+          'line-width': 2.5,
+          'line-opacity': 0.95
+        }
+      });
+    }
+
+    this.encuadrarZonaAproximada(geoJson);
+  }
+
+  private eliminarZonaAproximada(): void {
+    if (!this.map) {
+      return;
+    }
+
+    if (this.map.getLayer(this.layerZonaAproximadaBorde)) {
+      this.map.removeLayer(this.layerZonaAproximadaBorde);
+    }
+
+    if (this.map.getLayer(this.layerZonaAproximadaRelleno)) {
+      this.map.removeLayer(this.layerZonaAproximadaRelleno);
+    }
+
+    if (this.map.getSource(this.sourceZonaAproximada)) {
+      this.map.removeSource(this.sourceZonaAproximada);
+    }
+  }
+
+  private generarCirculoGeoJson(lng: number, lat: number, radioKm: number): any {
+    const puntos = 96;
+    const radioTierraKm = 6371.0088;
+
+    const latRad = this.gradosARadianes(lat);
+    const lngRad = this.gradosARadianes(lng);
+    const distanciaAngular = radioKm / radioTierraKm;
+
+    const coordenadas: [number, number][] = [];
+
+    for (let i = 0; i <= puntos; i++) {
+      const angulo = (2 * Math.PI * i) / puntos;
+
+      const latPunto = Math.asin(
+        Math.sin(latRad) * Math.cos(distanciaAngular) +
+        Math.cos(latRad) * Math.sin(distanciaAngular) * Math.cos(angulo)
+      );
+
+      const lngPunto =
+        lngRad +
+        Math.atan2(
+          Math.sin(angulo) * Math.sin(distanciaAngular) * Math.cos(latRad),
+          Math.cos(distanciaAngular) - Math.sin(latRad) * Math.sin(latPunto)
+        );
+
+      coordenadas.push([
+        this.radianesAGrados(lngPunto),
+        this.radianesAGrados(latPunto)
+      ]);
+    }
+
+    return {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [coordenadas]
+      },
+      properties: {}
+    };
+  }
+
+  private encuadrarZonaAproximada(geoJson: any): void {
+    if (!this.map) {
+      return;
+    }
+
+    const coordenadas = geoJson.geometry.coordinates[0] as [number, number][];
+
+    if (!coordenadas.length) {
+      return;
+    }
+
+    const bounds = new maplibregl.LngLatBounds(
+      coordenadas[0],
+      coordenadas[0]
+    );
+
+    coordenadas.forEach(coordenada => {
+      bounds.extend(coordenada);
+    });
+
+    this.map.fitBounds(bounds, {
+      padding: 48,
+      duration: 0,
+      maxZoom: 9.5
+    });
+  }
+
+  private gradosARadianes(valor: number): number {
+    return valor * Math.PI / 180;
+  }
+
+  private radianesAGrados(valor: number): number {
+    return valor * 180 / Math.PI;
   }
 
   private actualizarCoordenadas(lat: number | null, lng: number | null): void {

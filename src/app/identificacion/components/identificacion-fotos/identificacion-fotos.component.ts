@@ -12,8 +12,8 @@ import {
 } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
-import { BitacoraFotoModel } from '../../models/bitacora-foto.model';
-import { BitacoraService } from '../../services/bitacoras.service';
+import { IdentificacionFotoModel } from '../../models/identificacion-foto.model';
+import { IdentificacionService } from '../../services/identificaciones.service';
 
 interface FotoPreview {
   id?: number;
@@ -23,26 +23,26 @@ interface FotoPreview {
 }
 
 @Component({
-  selector: 'app-bitacora-fotos',
-  templateUrl: './bitacora-fotos.component.html',
-  styleUrls: ['./bitacora-fotos.component.scss']
+  selector: 'app-identificacion-fotos',
+  templateUrl: './identificacion-fotos.component.html',
+  styleUrls: ['./identificacion-fotos.component.scss']
 })
-export class BitacoraFotosComponent implements OnChanges, OnDestroy {
-  @Input() bitacoraId: number | null = null;
+export class IdentificacionFotosComponent implements OnChanges, OnDestroy {
+  @Input() identificacionId: number | null = null;
   @Input() soloLectura = false;
 
-  private _fotos: BitacoraFotoModel[] = [];
+  private _fotos: IdentificacionFotoModel[] = [];
 
   @Input()
-  set fotos(value: BitacoraFotoModel[] | null | undefined) {
+  set fotos(value: IdentificacionFotoModel[] | null | undefined) {
     this._fotos = value ?? [];
   }
 
-  get fotos(): BitacoraFotoModel[] {
+  get fotos(): IdentificacionFotoModel[] {
     return this._fotos;
   }
 
-  @Output() fotosChange = new EventEmitter<BitacoraFotoModel[]>();
+  @Output() fotosChange = new EventEmitter<IdentificacionFotoModel[]>();
   @Output() refrescarFotos = new EventEmitter<void>();
 
   @ViewChild('inputFotos') inputFotos?: ElementRef<HTMLInputElement>;
@@ -58,7 +58,7 @@ export class BitacoraFotosComponent implements OnChanges, OnDestroy {
   subiendo = false;
   eliminando = false;
 
-  constructor(private bitacorasService: BitacoraService) {}
+  constructor(private identificacionService: IdentificacionService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['fotos']) {
@@ -71,7 +71,7 @@ export class BitacoraFotosComponent implements OnChanges, OnDestroy {
   }
 
   get puedeSubir(): boolean {
-    return !this.soloLectura && !!this.bitacoraId && this.fotos.length < this.maxFotos && !this.subiendo;
+    return !this.soloLectura && !!this.identificacionId && this.fotos.length < this.maxFotos && !this.subiendo;
   }
 
   get fotoActual(): FotoPreview | null {
@@ -98,7 +98,7 @@ export class BitacoraFotosComponent implements OnChanges, OnDestroy {
     const input = event.target as HTMLInputElement;
     const files = Array.from(input.files ?? []);
 
-    if (!files.length || !this.bitacoraId) {
+    if (!files.length || !this.identificacionId) {
       input.value = '';
       return;
     }
@@ -115,7 +115,7 @@ export class BitacoraFotosComponent implements OnChanges, OnDestroy {
 
     try {
       for (const file of filesValidos) {
-        await firstValueFrom(this.bitacorasService.subirFoto(file, this.bitacoraId));
+        await firstValueFrom(this.identificacionService.subirFoto(file, this.identificacionId));
       }
 
       this.refrescarFotos.emit();
@@ -163,7 +163,7 @@ export class BitacoraFotosComponent implements OnChanges, OnDestroy {
     this.eliminando = true;
 
     try {
-      await firstValueFrom(this.bitacorasService.eliminarFoto(actual.id));
+      await firstValueFrom(this.identificacionService.eliminarFoto(actual.id));
 
       this.refrescarFotos.emit();
     } finally {
@@ -201,7 +201,7 @@ export class BitacoraFotosComponent implements OnChanges, OnDestroy {
         }
 
         try {
-          const blob = await firstValueFrom(this.bitacorasService.obtenerFotoBlob(foto.id));
+          const blob = await firstValueFrom(this.identificacionService.obtenerFotoBlob(foto.id));
 
           const src = URL.createObjectURL(blob);
 

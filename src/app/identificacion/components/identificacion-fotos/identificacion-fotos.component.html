@@ -34,16 +34,16 @@
       </div>
     </div>
 
-    <div *ngIf="!bitacoraId" class="sin-fotos">
-      Guarda primero la bitácora para poder subir fotos.
+    <div *ngIf="!identificacionId" class="sin-fotos">
+      Guarda primero la solicitud para poder subir fotos.
     </div>
 
-    <div *ngIf="bitacoraId && cargandoPreviews" class="sin-fotos">
+    <div *ngIf="identificacionId && cargandoPreviews" class="sin-fotos">
       Cargando fotos...
     </div>
 
     <div
-      *ngIf="bitacoraId && !cargandoPreviews && previews.length; else vacioConId"
+      *ngIf="identificacionId && !cargandoPreviews && previews.length; else vacioConId"
       class="visor-fotos">
 
       <div class="visor-simple" *ngIf="fotoActual as foto">
@@ -108,7 +108,7 @@
     </div>
 
     <ng-template #vacioConId>
-      <div *ngIf="bitacoraId && !cargandoPreviews" class="sin-fotos">
+      <div *ngIf="identificacionId && !cargandoPreviews" class="sin-fotos">
         No hay fotos todavía
       </div>
     </ng-template>

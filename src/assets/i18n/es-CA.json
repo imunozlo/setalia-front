@@ -7,6 +7,7 @@
 "ERROR_CONTRASENYA_ANTIGUA":"La nueva contraseña coincide con la anterior",
 "ERROR_CONTRASENYA_HISTORICA":"La nova contrasenya coincideix amb alguna utilitzada recentment",
 "ERROR_NOM_USUARI":"El nombre de usuario ya existe",
+"ERROR_IDENTIFICACION_YA_HECHA":"El usuario ya ha realizado una sugerencia para esta identificación.",
 "app.activo":"Activo",
 "app.basica":"Básica",
 "app.historico": "Histórico",
@@ -308,5 +309,7 @@
   "bitacora.eliminar.titulo": "Eliminar registro de bitácora",
   "bitacora.eliminar.pregunta": "Estas a punto de eliminar este registro de bitácora y, si la tiene, su publicación asociada.",
   "bitacora.crear.publicacion": "Publicar",
+  "bitacora.crear.publicacion.nueva": "Nueva publicación",
+  "bitacora.crear.publicacion.editar": "Editar publicación",
   "bitacora.seta": "Seta"
 }

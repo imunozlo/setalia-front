@@ -8,8 +8,52 @@
   [nzFooter]="footer"
   (nzOnClose)="cerrar()"
 >
-  <div *nzDrawerContent>
-    <lib-formularios [formulario]="formulario" [(estado)]="formularioValid" [listasValores]="[]" [(modelo)]="bitacora" />
+  <div *nzDrawerContent class="drawer-publicar">
+
+    <section
+      class="aviso-publicacion"
+      [class.aviso-publicacion--edicion]="!nuevo">
+
+      <div class="aviso-publicacion__titulo">
+        {{ nuevo ? 'Nueva publicación pública' : 'Editar publicación pública' }}
+      </div>
+
+      <ng-container *ngIf="nuevo; else avisoEdicion">
+        <p class="aviso-publicacion__texto">
+          Vas a crear una publicación a partir de este registro privado.
+          El título y las observaciones internas no se mostrarán: deberás escribir
+          un título y una descripción específicos para la publicación.
+        </p>
+
+        <p class="aviso-publicacion__texto">
+          Solo se compartirá la información pública configurada. La ubicación exacta
+          no será visible y el mapa mostrará una zona aproximada. Evita incluir
+          coordenadas, nombres de setales o anotaciones internas en el texto público.
+        </p>
+      </ng-container>
+
+      <ng-template #avisoEdicion>
+        <p class="aviso-publicacion__texto">
+          Estás editando una publicación que ya existe. Puedes actualizar
+          el título y la descripción que verán el resto de usuarios.
+        </p>
+
+        <p class="aviso-publicacion__texto">
+          Revisa especialmente el texto público antes de guardar. La ubicación seguirá
+          mostrándose de forma aproximada, por lo que no conviene añadir referencias
+          demasiado precisas en la descripción.
+        </p>
+      </ng-template>
+    </section>
+
+    <div class="formulario-publicacion">
+      <lib-formularios
+        [formulario]="formulario"
+        [(estado)]="formularioValid"
+        [listasValores]="[]"
+        [(modelo)]="bitacora"
+      />
+    </div>
   </div>
 
   <ng-template #footer>
@@ -30,5 +74,4 @@
       />
     </div>
   </ng-template>
-
 </nz-drawer>

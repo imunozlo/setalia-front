@@ -12,6 +12,7 @@ import {BitacoraMediaComponent} from "./components/media/bitacora-media.componen
 import {BitacoraFotosComponent} from "./components/fotos/bitacora-fotos.component";
 import {NzCarouselComponent} from "ng-zorro-antd/carousel";
 import { DrawerPublicarComponent } from './dialogs/publicar/drawer-publicar.component';
+import {NzIconModule} from "ng-zorro-antd/icon";
 
 
 
@@ -26,9 +27,10 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [SharedModule, UserModule, BitacoraRoutingModule, NzCarouselComponent],
+  imports: [SharedModule, UserModule, BitacoraRoutingModule, NzCarouselComponent, NzIconModule],
   declarations: [...COMPONENTS],
   providers: [],
+  exports: [BitacoraFotosComponent, BitacoraMapaComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class BitacoraModule {}

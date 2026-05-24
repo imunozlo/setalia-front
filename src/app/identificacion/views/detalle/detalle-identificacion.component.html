@@ -1,0 +1,173 @@
+<app-skelteon *ngIf="loading" [files]="10" />
+
+<div class="detalle-contenedor" *ngIf="!loading && identificacion">
+  <div class="info_basica">
+    <nz-card style="height: 100%;">
+      <div class="cabecera-identificacion" *ngIf="!esNuevo">
+        <div class="cabecera-identificacion__estado">
+          <span [class]="obtenerClaseEstado()">
+            {{ obtenerEstadoTexto() }}
+          </span>
+
+          <span class="cabecera-identificacion__usuario" *ngIf="identificacion.usuarioDescripcion">
+            {{ identificacion.usuarioDescripcion }}
+          </span>
+        </div>
+
+        <div class="cabecera-identificacion__resuelta" *ngIf="estaResuelta()">
+          <span class="cabecera-identificacion__label">
+            Identificación resuelta:
+          </span>
+          <span class="cabecera-identificacion__valor">
+            {{ obtenerSetaResuelta() }}
+          </span>
+        </div>
+      </div>
+
+      <div
+        class="aviso-identificacion aviso-identificacion--resuelta"
+        *ngIf="estaResuelta()">
+        Esta solicitud ya ha sido resuelta automáticamente por consenso de sugerencias.
+        No se pueden añadir nuevas sugerencias ni modificar la solicitud.
+      </div>
+
+      <div
+        class="aviso-identificacion"
+        *ngIf="!esNuevo && !esCreador() && !estaResuelta()">
+        Puedes revisar los datos de la solicitud y proponer una identificación desde el apartado de sugerencias.
+      </div>
+
+      <lib-formularios
+        [formulario]="formulario"
+        [(estado)]="formularioValid"
+        [listasValores]="listasValores"
+        (campoRelacionadoChange)="filtrarMunicipios($event)"
+        [(modelo)]="identificacion"
+      />
+    </nz-card>
+  </div>
+
+  <div class="info_relacionada">
+    <div class="identificacion-relacionada">
+      <div class="identificacion-fotos" *ngIf="!esNuevo">
+        <app-identificacion-fotos
+          [identificacionId]="identificacion.id"
+          [(fotos)]="identificacion.fotos"
+          [soloLectura]="!puedeGestionarFotos()"
+          (refrescarFotos)="cargarDatos()">
+        </app-identificacion-fotos>
+      </div>
+
+      <div class="identificacion-sugerencias" *ngIf="!esNuevo">
+        <nz-card class="card-sugerencias" style="height: 100%;">
+          <div class="sugerencias-header">
+            <div>
+              <h3 class="sugerencias-header__titulo">
+                Sugerencias de identificación
+              </h3>
+
+              <p class="sugerencias-header__descripcion">
+                Las sugerencias de otros usuarios ayudan a resolver automáticamente la identificación.
+              </p>
+            </div>
+
+            <lib-boton
+              *ngIf="puedeSugerir()"
+              [titulo]="'Añadir sugerencia'"
+              (click)="abrirDrawerSugerencia()">
+            </lib-boton>
+          </div>
+
+          <div
+            class="aviso-identificacion"
+            *ngIf="esCreador() && !estaResuelta()">
+            Como creador de la solicitud puedes consultar las sugerencias recibidas, pero no añadir una sugerencia propia.
+          </div>
+
+          <div
+            class="aviso-identificacion aviso-identificacion--resuelta"
+            *ngIf="estaResuelta()">
+            La identificación ya está resuelta. No se admiten nuevas sugerencias.
+          </div>
+
+          <div class="tabla-sugerencias-contenedor">
+            <nz-table
+              #tablaSugerencias
+              [nzData]="sugerencias"
+              [nzPageSize]="10"
+              [nzHideOnSinglePage]="true">
+
+              <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Seta sugerida</th>
+                <th>Usuario</th>
+                <th>Tipo</th>
+                <th>Comentario</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr *ngFor="let sugerencia of tablaSugerencias.data; trackBy: trackBySugerenciaId">
+                <td>
+                  {{ sugerencia.fechaSugerencia | date: 'dd/MM/yyyy HH:mm' }}
+                </td>
+
+                <td>
+                  <div class="seta-sugerida">
+                      <span class="seta-sugerida__cientifico">
+                        {{ sugerencia.setaNombreCientifico }}
+                      </span>
+
+                    <span
+                      class="seta-sugerida__comun"
+                      *ngIf="sugerencia.setaNombreComun">
+                        {{ sugerencia.setaNombreComun }}
+                      </span>
+                  </div>
+                </td>
+
+                <td>
+                  {{ sugerencia.usuarioDescripcion }}
+                </td>
+
+                <td>
+                    <span
+                      class="tipo-sugerencia"
+                      [class.tipo-sugerencia--supervisor]="sugerencia.supervisor">
+                      {{ sugerencia.supervisor ? 'Supervisor' : 'Usuario' }}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="comentario-sugerencia">
+                      {{ sugerencia.comentario || 'Sin comentario' }}
+                    </span>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="botonera_principal">
+    <nz-row>
+      <nz-col [nzSpan]="24" class="flex-end-center padding-right-md">
+        <lib-detalle-botonera-principal
+          *ngIf="esNuevo || esCreador()"
+          [disabled]="!puedeGuardar()"
+          (guardarEvent)="guardar()"
+        />
+      </nz-col>
+    </nz-row>
+  </div>
+</div>
+
+<app-drawer-sugerencia-identificacion
+  #drawerSugerencia
+  *ngIf="!loading"
+  (refrescar)="refrescarTrasSugerencia()">
+</app-drawer-sugerencia-identificacion>
