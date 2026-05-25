@@ -1,2 +1,2 @@
-/apiSetalia/* https://setalia-back-production.up.railway.app/:splat 200
+/apiSetalia/* https://setalia-back-production.up.railway.app/api/v1/:splat 200
 /* /index.html 200
