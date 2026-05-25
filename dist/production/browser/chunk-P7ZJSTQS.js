@@ -1,0 +1,1 @@
+import{g as a}from"./chunk-ODS5QY5J.js";import"./chunk-PJBEF6KV.js";import"./chunk-SYGO7LEM.js";import"./chunk-2OLMNHFW.js";import"./chunk-T77HYVP7.js";import"./chunk-57MBAMG2.js";import"./chunk-D35SYKFT.js";export{a as BitacoraModule};
