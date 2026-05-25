@@ -1,0 +1,9 @@
+# Sustituye TU_BACKEND_RAILWAY por el dominio real del backend.
+# Caso habitual: en local proxy.conf eliminaba /apiSetalia antes de llegar al backend.
+/apiSetalia/* https://TU_BACKEND_RAILWAY.up.railway.app/:splat 200
+
+# Si tus controladores Spring Boot realmente empiezan por /apiSetalia,
+# comenta la línea anterior y usa esta:
+# /apiSetalia/* https://TU_BACKEND_RAILWAY.up.railway.app/apiSetalia/:splat 200
+
+/* /index.html 200

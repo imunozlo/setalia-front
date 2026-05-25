@@ -12,7 +12,8 @@
     "build:prod": "node --max_old_space_size=4048 ./node_modules/@angular/cli/bin/ng build --configuration production --base-href /kairon/",
     "lint": "eslint \"src/app/**/*.{js,ts}\"",
     "lint:fix": "eslint \"src/app/**/*.{js,ts}\" --fix",
-    "format": "prettier --write 'src/**/*.{js,ts,json,css,scss,less,md}'"
+    "format": "prettier --write 'src/**/*.{js,ts,json,css,scss,less,md}'",
+    "build:netlify": "node --max_old_space_size=4048 ./node_modules/@angular/cli/bin/ng build --configuration production"
   },
   "dependencies": {
     "@angular/animations": "^17.3.5",
